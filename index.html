@@ -5,15 +5,14 @@
   <title>Wolfpack Planetarium Museum</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="styles/museum.css">
-
-  <!-- GOOGLE FONTS -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <!-- 4K Starfield Background -->
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="styles/museum.css">
+
   <style>
     body {
       margin: 0;
@@ -22,24 +21,19 @@
       overflow-x: hidden;
     }
 
-    /* Animated Galaxy BG */
+    /* STARFIELD BACKGROUND */
     #stars, #stars2, #stars3 {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
       display: block;
       z-index: -1;
-      background: transparent url('https://i.imgur.com/K3mPv14.png') repeat;
+      background-repeat: repeat;
       animation: moveStars 200s linear infinite;
     }
-    #stars2 {
-      background: transparent url('https://i.imgur.com/GW6Gkqv.png') repeat;
-      animation-duration: 400s;
-    }
-    #stars3 {
-      background: transparent url('https://i.imgur.com/0j3ZxaZ.png') repeat;
-      animation-duration: 600s;
-    }
+    #stars  { background-image: url('https://i.imgur.com/K3mPv14.png'); }
+    #stars2 { background-image: url('https://i.imgur.com/GW6Gkqv.png'); animation-duration: 400s; }
+    #stars3 { background-image: url('https://i.imgur.com/0j3ZxaZ.png'); animation-duration: 600s; }
 
     @keyframes moveStars {
       from { transform: translateY(0); }
@@ -88,8 +82,8 @@
       height: 12px;
       border-radius: 50%;
     }
-    .active-dot { background: #00eaff; box-shadow: 0 0 12px #00eaff; }
-    .secret-dot { background: #ff00ea; box-shadow: 0 0 12px #ff00ea; }
+    .active-dot  { background: #00eaff; box-shadow: 0 0 12px #00eaff; }
+    .secret-dot  { background: #ff00ea; box-shadow: 0 0 12px #ff00ea; }
     .inactive-dot { background: #666; }
 
     /* GRID */
@@ -98,12 +92,12 @@
       margin: 40px auto;
       padding: 0 20px;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 24px;
     }
 
     .world-card {
-      padding: 20px;
+      padding: 22px;
       border-radius: 16px;
       background: rgba(0, 0, 0, 0.55);
       border: 1px solid rgba(0,255,255,0.18);
@@ -118,8 +112,8 @@
       box-shadow: 0 0 30px rgba(0,255,255,0.35);
     }
 
-    .active { border-color: #00eaff; box-shadow: 0 0 25px #00eaff44; }
-    .secret { border-color: #ff00ea; box-shadow: 0 0 25px #ff00ea44; }
+    .active  { border-color: #00eaff; box-shadow: 0 0 25px #00eaff44; }
+    .secret  { border-color: #ff00ea; box-shadow: 0 0 25px #ff00ea44; }
     .inactive { border-color: #888; opacity: 0.65; }
 
     .world-title {
@@ -143,11 +137,11 @@
       margin-top: 40px;
     }
   </style>
-
 </head>
+
 <body>
 
-<!-- STARFIELD LAYERS -->
+<!-- BACKGROUND -->
 <div id="stars"></div>
 <div id="stars2"></div>
 <div id="stars3"></div>
@@ -173,7 +167,7 @@
   <br>GI-led sovereignty • Email-only ledger intake
 </footer>
 
-<!-- SCRIPTS -->
+<!-- JS -->
 <script src="scripts/planetarium.js"></script>
 <script src="scripts/ledger.js"></script>
 
