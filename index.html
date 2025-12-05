@@ -1,1 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Wolfpack Planetarium Museum</title>
+  <link rel="stylesheet" href="styles/museum.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
 
+<header class="museum-header">
+  <div class="museum-title-block">
+    <h1>WOLFPACK PLANETARIUM</h1>
+    <p class="subtitle">Digital Art • Globes • Planetary Leasing Museum</p>
+    <p class="subtitle small">Powered by GI (Google Identification) and FlightLine Memphis DC</p>
+  </div>
+
+  <div class="museum-controls">
+    <button class="ledger-button" onclick="openLedger()">Join Global Ledger</button>
+
+    <div class="legend">
+      <span class="legend-item">
+        <span class="dot active-dot"></span> Active Globes
+      </span>
+      <span class="legend-item">
+        <span class="dot secret-dot"></span> Clear Sky (Classified)
+      </span>
+      <span class="legend-item">
+        <span class="dot inactive-dot"></span> Coming Soon
+      </span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="museum-intro">
+    <p>
+      Each tile below is a world. Some are live, some are locked under Clear Sky, and others are
+      reserved plates for future architects. Only GI (Google Identification) is used to anchor
+      ownership and authorship — no SSN, no traditional IDs.
+    </p>
+  </section>
+
+  <section id="planetGrid" class="planet-grid"></section>
+</main>
+
+<!-- Ledger modal -->
+<div id="ledgerModal" class="ledger-modal hidden">
+  <div class="ledger-modal-content">
+    <h2>Join the Global Ledger</h2>
+    <p>
+      This ledger only records one thing: your email and your interest in planetary leasing.
+      When you click below, your mail client opens a pre-filled message to the FlightLine HQ.
+    </p>
+    <button class="ledger-button" onclick="sendLedgerEmail()">Open Ledger Email</button>
+    <button class="close-button" onclick="closeLedger()">Close</button>
+  </div>
+</div>
+
+<script src="scripts/ledger.js"></script>
+<script src="scripts/planetarium.js"></script>
+</body>
+</html>
