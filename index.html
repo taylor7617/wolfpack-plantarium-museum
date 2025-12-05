@@ -5,92 +5,177 @@
   <title>Wolfpack Planetarium Museum</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Primary stylesheet -->
+  <!-- CSS -->
   <link rel="stylesheet" href="styles/museum.css">
 
-  <!-- Meta description for museum -->
-  <meta name="description"
-        content="Wolfpack Planetarium Museum — a digital art gallery of active, classified, and reserved globes powered by GI (Google Identification) and FlightLine Memphis DC.">
+  <!-- GOOGLE FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- 4K Starfield Background -->
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      color: #e8f9ff;
+      overflow-x: hidden;
+    }
+
+    /* Animated Galaxy BG */
+    #stars, #stars2, #stars3 {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: block;
+      z-index: -1;
+      background: transparent url('https://i.imgur.com/K3mPv14.png') repeat;
+      animation: moveStars 200s linear infinite;
+    }
+    #stars2 {
+      background: transparent url('https://i.imgur.com/GW6Gkqv.png') repeat;
+      animation-duration: 400s;
+    }
+    #stars3 {
+      background: transparent url('https://i.imgur.com/0j3ZxaZ.png') repeat;
+      animation-duration: 600s;
+    }
+
+    @keyframes moveStars {
+      from { transform: translateY(0); }
+      to { transform: translateY(-2000px); }
+    }
+
+    /* HEADER */
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+      backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.45);
+      border-bottom: 1px solid rgba(0,255,255,0.25);
+    }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3rem;
+      margin: 0;
+      letter-spacing: 6px;
+      color: #00f2ff;
+      text-shadow: 0 0 25px #00f2ff, 0 0 60px #007a96;
+    }
+    .subtitle {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-top: 8px;
+    }
+
+    /* LEGEND */
+    .legend {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      margin-top: 14px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .active-dot { background: #00eaff; box-shadow: 0 0 12px #00eaff; }
+    .secret-dot { background: #ff00ea; box-shadow: 0 0 12px #ff00ea; }
+    .inactive-dot { background: #666; }
+
+    /* GRID */
+    #planetGrid {
+      max-width: 1400px;
+      margin: 40px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 24px;
+    }
+
+    .world-card {
+      padding: 20px;
+      border-radius: 16px;
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(0,255,255,0.18);
+      box-shadow: 0 0 20px rgba(0,255,255,0.15);
+      transition: 0.25s ease;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+    }
+
+    .world-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 0 30px rgba(0,255,255,0.35);
+    }
+
+    .active { border-color: #00eaff; box-shadow: 0 0 25px #00eaff44; }
+    .secret { border-color: #ff00ea; box-shadow: 0 0 25px #ff00ea44; }
+    .inactive { border-color: #888; opacity: 0.65; }
+
+    .world-title {
+      font-family: 'Orbitron';
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: #00f2ff;
+    }
+
+    .world-status {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin-bottom: 6px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 15px;
+      font-size: 0.8rem;
+      opacity: 0.7;
+      margin-top: 40px;
+    }
+  </style>
+
 </head>
 <body>
 
-<header class="museum-header">
-  <div class="museum-title-block">
-    <h1>WOLFPACK PLANETARIUM</h1>
-    <p class="subtitle">Digital Art • Globes • Planetary Leasing Museum</p>
-    <p class="subtitle small">
-      Powered by GI (Google Identification) and FlightLine Memphis DC
-    </p>
-  </div>
+<!-- STARFIELD LAYERS -->
+<div id="stars"></div>
+<div id="stars2"></div>
+<div id="stars3"></div>
 
-  <div class="museum-controls">
-    <button class="ledger-button" type="button" onclick="openLedger()">
-      Join Global Ledger
-    </button>
+<header>
+  <h1>WOLFPACK PLANETARIUM</h1>
+  <p class="subtitle">Digital Art • Globes • Planetary Leasing Museum</p>
+  <p class="subtitle">Powered by GI & FlightLine Memphis DC</p>
 
-    <div class="legend">
-      <span class="legend-item">
-        <span class="dot active-dot"></span> Active Globes
-      </span>
-      <span class="legend-item">
-        <span class="dot secret-dot"></span> Clear Sky (Classified)
-      </span>
-      <span class="legend-item">
-        <span class="dot inactive-dot"></span> Coming Soon
-      </span>
-    </div>
+  <div class="legend">
+    <span class="legend-item"><span class="dot active-dot"></span> Active Globes</span>
+    <span class="legend-item"><span class="dot secret-dot"></span> Clear Sky</span>
+    <span class="legend-item"><span class="dot inactive-dot"></span> Coming Soon</span>
   </div>
 </header>
 
 <main>
-  <section class="museum-intro">
-    <p>
-      Each tile below is a world in the Wolfpack Planetarium Museum.
-      Some are <strong>live</strong>, some are locked under
-      <strong>Clear Sky</strong> for Flight Crew Officers, and others are
-      reserved plates for future architects.
-    </p>
-    <p>
-      Ownership and authorship are anchored only by
-      <strong>GI (Google Identification)</strong> — email as identity.
-      No SSN, no traditional IDs. Just verifiable motion tied to globes.
-    </p>
-  </section>
-
-  <!-- Planet grid is fully rendered by scripts/planetarium.js -->
-  <section id="planetGrid" class="planet-grid"></section>
+  <section id="planetGrid"></section>
 </main>
 
-<footer class="museum-footer" style="padding: 16px 32px 28px 32px; font-size: 11px; color: #9a9a9a;">
-  <div style="max-width: 900px;">
-    <div>Worlds 001–032 are preloaded (Active & Clear Sky).</div>
-    <div>Worlds 033–100 are reserved plates — Coming Soon for new GI architects.</div>
-    <div style="margin-top: 6px;">
-      Ledger intake is email-only to maintain sovereignty and simple proof of interest.
-    </div>
-  </div>
+<footer>
+  Worlds 001–032 active & classified • 033–100 reserved plates  
+  <br>GI-led sovereignty • Email-only ledger intake
 </footer>
 
-<!-- Ledger modal -->
-<div id="ledgerModal" class="ledger-modal hidden" aria-hidden="true">
-  <div class="ledger-modal-content">
-    <h2>Join the Global Ledger</h2>
-    <p>
-      This ledger records only one thing: your email (GI) and your interest in
-      planetary leasing. When you continue, your mail client opens a pre-filled
-      message addressed to FlightLine HQ.
-    </p>
-    <button class="ledger-button" type="button" onclick="sendLedgerEmail()">
-      Open Ledger Email
-    </button>
-    <button class="close-button" type="button" onclick="closeLedger()">
-      Close
-    </button>
-  </div>
-</div>
-
-<!-- Scripts -->
-<script src="scripts/ledger.js"></script>
+<!-- SCRIPTS -->
 <script src="scripts/planetarium.js"></script>
+<script src="scripts/ledger.js"></script>
+
 </body>
 </html>
