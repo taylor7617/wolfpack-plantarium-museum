@@ -3,8 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Wolfpack Planetarium Museum</title>
-  <link rel="stylesheet" href="styles/museum.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary stylesheet -->
+  <link rel="stylesheet" href="styles/museum.css">
+
+  <!-- Meta description for museum -->
+  <meta name="description"
+        content="Wolfpack Planetarium Museum — a digital art gallery of active, classified, and reserved globes powered by GI (Google Identification) and FlightLine Memphis DC.">
 </head>
 <body>
 
@@ -12,11 +18,15 @@
   <div class="museum-title-block">
     <h1>WOLFPACK PLANETARIUM</h1>
     <p class="subtitle">Digital Art • Globes • Planetary Leasing Museum</p>
-    <p class="subtitle small">Powered by GI (Google Identification) and FlightLine Memphis DC</p>
+    <p class="subtitle small">
+      Powered by GI (Google Identification) and FlightLine Memphis DC
+    </p>
   </div>
 
   <div class="museum-controls">
-    <button class="ledger-button" onclick="openLedger()">Join Global Ledger</button>
+    <button class="ledger-button" type="button" onclick="openLedger()">
+      Join Global Ledger
+    </button>
 
     <div class="legend">
       <span class="legend-item">
@@ -35,28 +45,51 @@
 <main>
   <section class="museum-intro">
     <p>
-      Each tile below is a world. Some are live, some are locked under Clear Sky, and others are
-      reserved plates for future architects. Only GI (Google Identification) is used to anchor
-      ownership and authorship — no SSN, no traditional IDs.
+      Each tile below is a world in the Wolfpack Planetarium Museum.
+      Some are <strong>live</strong>, some are locked under
+      <strong>Clear Sky</strong> for Flight Crew Officers, and others are
+      reserved plates for future architects.
+    </p>
+    <p>
+      Ownership and authorship are anchored only by
+      <strong>GI (Google Identification)</strong> — email as identity.
+      No SSN, no traditional IDs. Just verifiable motion tied to globes.
     </p>
   </section>
 
+  <!-- Planet grid is fully rendered by scripts/planetarium.js -->
   <section id="planetGrid" class="planet-grid"></section>
 </main>
 
+<footer class="museum-footer" style="padding: 16px 32px 28px 32px; font-size: 11px; color: #9a9a9a;">
+  <div style="max-width: 900px;">
+    <div>Worlds 001–032 are preloaded (Active & Clear Sky).</div>
+    <div>Worlds 033–100 are reserved plates — Coming Soon for new GI architects.</div>
+    <div style="margin-top: 6px;">
+      Ledger intake is email-only to maintain sovereignty and simple proof of interest.
+    </div>
+  </div>
+</footer>
+
 <!-- Ledger modal -->
-<div id="ledgerModal" class="ledger-modal hidden">
+<div id="ledgerModal" class="ledger-modal hidden" aria-hidden="true">
   <div class="ledger-modal-content">
     <h2>Join the Global Ledger</h2>
     <p>
-      This ledger only records one thing: your email and your interest in planetary leasing.
-      When you click below, your mail client opens a pre-filled message to the FlightLine HQ.
+      This ledger records only one thing: your email (GI) and your interest in
+      planetary leasing. When you continue, your mail client opens a pre-filled
+      message addressed to FlightLine HQ.
     </p>
-    <button class="ledger-button" onclick="sendLedgerEmail()">Open Ledger Email</button>
-    <button class="close-button" onclick="closeLedger()">Close</button>
+    <button class="ledger-button" type="button" onclick="sendLedgerEmail()">
+      Open Ledger Email
+    </button>
+    <button class="close-button" type="button" onclick="closeLedger()">
+      Close
+    </button>
   </div>
 </div>
 
+<!-- Scripts -->
 <script src="scripts/ledger.js"></script>
 <script src="scripts/planetarium.js"></script>
 </body>
