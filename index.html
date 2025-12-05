@@ -1,147 +1,281 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Wolfpack Planetarium Museum</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Wolfpack Planetarium Museum</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<!-- FONTS -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="styles/museum.css">
+<style>
+/* ----------------------------------------------------------
+   GLOBAL RESET + BASE COLORS
+---------------------------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      color: #e8f9ff;
-      overflow-x: hidden;
-    }
+html, body {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  font-family: 'Inter', sans-serif;
+  color: #e8f9ff;
+  overflow-x: hidden;
+}
 
-    /* STARFIELD BACKGROUND */
-    #stars, #stars2, #stars3 {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      display: block;
-      z-index: -1;
-      background-repeat: repeat;
-      animation: moveStars 200s linear infinite;
-    }
-    #stars  { background-image: url('https://i.imgur.com/K3mPv14.png'); }
-    #stars2 { background-image: url('https://i.imgur.com/GW6Gkqv.png'); animation-duration: 400s; }
-    #stars3 { background-image: url('https://i.imgur.com/0j3ZxaZ.png'); animation-duration: 600s; }
+/* ----------------------------------------------------------
+   4K STARFIELD BACKGROUND (LAYERED)
+---------------------------------------------------------- */
+#stars, #stars2, #stars3 {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -5;
+  background-repeat: repeat;
+  background-size: contain;
+  animation: drift 180s linear infinite;
+}
 
-    @keyframes moveStars {
-      from { transform: translateY(0); }
-      to { transform: translateY(-2000px); }
-    }
+#stars  { background-image: url('https://i.imgur.com/K3mPv14.png'); }
+#stars2 { background-image: url('https://i.imgur.com/GW6Gkqv.png'); animation-duration: 350s; opacity: 0.55; }
+#stars3 { background-image: url('https://i.imgur.com/0j3ZxaZ.png'); animation-duration: 500s; opacity: 0.35; }
 
-    /* HEADER */
-    header {
-      text-align: center;
-      padding: 40px 20px 20px;
-      backdrop-filter: blur(8px);
-      background: rgba(0, 0, 0, 0.45);
-      border-bottom: 1px solid rgba(0,255,255,0.25);
-    }
+@keyframes drift {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-2800px); }
+}
 
-    h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 3rem;
-      margin: 0;
-      letter-spacing: 6px;
-      color: #00f2ff;
-      text-shadow: 0 0 25px #00f2ff, 0 0 60px #007a96;
-    }
-    .subtitle {
-      font-size: 1.1rem;
-      opacity: 0.9;
-      margin-top: 8px;
-    }
+/* ----------------------------------------------------------
+   CINEMATIC INTRO OVERLAY
+---------------------------------------------------------- */
+#introOverlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #001018, #000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  animation: fadeOut 4s ease forwards;
+}
 
-    /* LEGEND */
-    .legend {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 24px;
-      margin-top: 14px;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.9rem;
-    }
-    .dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-    }
-    .active-dot  { background: #00eaff; box-shadow: 0 0 12px #00eaff; }
-    .secret-dot  { background: #ff00ea; box-shadow: 0 0 12px #ff00ea; }
-    .inactive-dot { background: #666; }
+#introText {
+  font-family: 'Orbitron';
+  font-size: 2.8rem;
+  letter-spacing: 8px;
+  color: #00f2ff;
+  text-shadow: 0 0 25px #00f2ff, 0 0 45px #007a96;
+  opacity: 0;
+  animation: introFade 2s ease forwards 1s;
+}
 
-    /* GRID */
-    #planetGrid {
-      max-width: 1400px;
-      margin: 40px auto;
-      padding: 0 20px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 24px;
-    }
+@keyframes introFade {
+  from { opacity: 0; transform: scale(0.85);}
+  to   { opacity: 1; transform: scale(1);}
+}
 
-    .world-card {
-      padding: 22px;
-      border-radius: 16px;
-      background: rgba(0, 0, 0, 0.55);
-      border: 1px solid rgba(0,255,255,0.18);
-      box-shadow: 0 0 20px rgba(0,255,255,0.15);
-      transition: 0.25s ease;
-      cursor: pointer;
-      backdrop-filter: blur(4px);
-    }
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
 
-    .world-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 0 30px rgba(0,255,255,0.35);
-    }
+/* ----------------------------------------------------------
+   HEADER
+---------------------------------------------------------- */
+header {
+  text-align: center;
+  padding: 50px 20px 20px;
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.45);
+  border-bottom: 1px solid rgba(0,255,255,0.25);
+}
 
-    .active  { border-color: #00eaff; box-shadow: 0 0 25px #00eaff44; }
-    .secret  { border-color: #ff00ea; box-shadow: 0 0 25px #ff00ea44; }
-    .inactive { border-color: #888; opacity: 0.65; }
+h1 {
+  font-family: 'Orbitron';
+  font-size: 3.4rem;
+  color: #00f2ff;
+  letter-spacing: 7px;
+  text-shadow: 0 0 25px #00f2ff, 0 0 55px #007a96;
+}
 
-    .world-title {
-      font-family: 'Orbitron';
-      font-size: 1.3rem;
-      margin-bottom: 10px;
-      color: #00f2ff;
-    }
+.subtitle {
+  margin-top: 8px;
+  font-size: 1.1rem;
+  opacity: 0.85;
+}
 
-    .world-status {
-      font-size: 0.9rem;
-      opacity: 0.85;
-      margin-bottom: 6px;
-    }
+/* ----------------------------------------------------------
+   LEGEND
+---------------------------------------------------------- */
+.legend {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+  margin-top: 18px;
+}
 
-    footer {
-      text-align: center;
-      padding: 30px 15px;
-      font-size: 0.8rem;
-      opacity: 0.7;
-      margin-top: 40px;
-    }
-  </style>
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+}
+
+.active-dot  { background: #00eaff; box-shadow: 0 0 12px #00eaff; }
+.secret-dot  { background: #ff00ea; box-shadow: 0 0 12px #ff00ea; }
+.inactive-dot { background: #666; }
+
+/* ----------------------------------------------------------
+   FILTER BUTTONS
+---------------------------------------------------------- */
+.filter-row {
+  margin-top: 22px;
+  text-align: center;
+}
+
+.filter-btn {
+  padding: 8px 22px;
+  margin: 0 6px;
+  border: 1px solid #00f2ff;
+  color: #00f2ff;
+  background: transparent;
+  border-radius: 99px;
+  cursor: pointer;
+  letter-spacing: 2px;
+  transition: 0.2s;
+  text-transform: uppercase;
+}
+
+.filter-btn:hover {
+  background: #00f2ff;
+  color: #000;
+  box-shadow: 0 0 15px #00f2ff;
+}
+
+/* ----------------------------------------------------------
+   GRID
+---------------------------------------------------------- */
+#planetGrid {
+  max-width: 1450px;
+  margin: 40px auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 26px;
+}
+
+/* ----------------------------------------------------------
+   WORLD CARD (4K GLASS UI)
+---------------------------------------------------------- */
+.world-card {
+  padding: 24px;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.58);
+  border: 1px solid rgba(0,255,255,0.18);
+  box-shadow: 0 0 30px rgba(0,255,255,0.10);
+  transition: 0.25s;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+}
+
+.world-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 0 45px rgba(0,255,255,0.35);
+}
+
+/* STATUS COLORS */
+.active { border-color: #00eaff; box-shadow: 0 0 30px #00eaff55; }
+.secret { border-color: #ff00ea; box-shadow: 0 0 30px #ff00ea55; }
+.inactive { border-color: #666; opacity: 0.65; }
+
+/* TEXT */
+.world-title {
+  font-family: 'Orbitron';
+  font-size: 1.35rem;
+  margin-bottom: 10px;
+  color: #00f2ff;
+}
+
+.world-status {
+  font-size: 0.9rem;
+  opacity: 0.85;
+  margin-bottom: 6px;
+}
+
+/* ----------------------------------------------------------
+   LEDGER MODAL
+---------------------------------------------------------- */
+#ledgerModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 80;
+}
+
+.ledger-content {
+  background: #031017;
+  padding: 28px;
+  width: 90%;
+  max-width: 430px;
+  border-radius: 16px;
+  border: 1px solid #00f2ff;
+  text-align: center;
+  box-shadow: 0 0 35px #00f2ff66;
+}
+
+.ledger-btn {
+  padding: 10px 20px;
+  border-radius: 99px;
+  border: 1px solid #00f2ff;
+  background: transparent;
+  color: #00f2ff;
+  cursor: pointer;
+  margin-top: 14px;
+  transition: 0.2s;
+}
+
+.ledger-btn:hover {
+  background: #00f2ff;
+  color: #000;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 40px;
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+</style>
+
 </head>
-
 <body>
 
-<!-- BACKGROUND -->
+<!-- CINEMATIC INTRO -->
+<div id="introOverlay">
+  <div id="introText">WOLFPACK PLANETARIUM</div>
+</div>
+
+<!-- STARFIELD -->
 <div id="stars"></div>
 <div id="stars2"></div>
 <div id="stars3"></div>
@@ -149,12 +283,19 @@
 <header>
   <h1>WOLFPACK PLANETARIUM</h1>
   <p class="subtitle">Digital Art • Globes • Planetary Leasing Museum</p>
-  <p class="subtitle">Powered by GI & FlightLine Memphis DC</p>
+  <p class="subtitle">Powered by GI (Google Identification) & FlightLine Memphis DC</p>
 
   <div class="legend">
-    <span class="legend-item"><span class="dot active-dot"></span> Active Globes</span>
+    <span class="legend-item"><span class="dot active-dot"></span> Active</span>
     <span class="legend-item"><span class="dot secret-dot"></span> Clear Sky</span>
     <span class="legend-item"><span class="dot inactive-dot"></span> Coming Soon</span>
+  </div>
+
+  <div class="filter-row">
+    <button class="filter-btn" onclick="filterWorlds('all')">All</button>
+    <button class="filter-btn" onclick="filterWorlds('active')">Active</button>
+    <button class="filter-btn" onclick="filterWorlds('secret')">Clear Sky</button>
+    <button class="filter-btn" onclick="filterWorlds('inactive')">Coming Soon</button>
   </div>
 </header>
 
@@ -163,13 +304,133 @@
 </main>
 
 <footer>
-  Worlds 001–032 active & classified • 033–100 reserved plates  
-  <br>GI-led sovereignty • Email-only ledger intake
+  Worlds 001–032 active & classified — 033–100 reserved  
+  <br>GI-Anchored Sovereignty • Email-Only Global Ledger  
 </footer>
 
-<!-- JS -->
-<script src="scripts/planetarium.js"></script>
-<script src="scripts/ledger.js"></script>
+<!-- LEDGER MODAL -->
+<div id="ledgerModal">
+  <div class="ledger-content">
+    <h2>Join the Global Ledger</h2>
+    <p>This ledger records your GI (email) and your world interest.</p>
+    <button class="ledger-btn" onclick="sendLedgerEmail()">Open Ledger Email</button>
+    <button class="ledger-btn" onclick="closeLedger()">Close</button>
+  </div>
+</div>
+
+<script>
+/* ----------------------------------------------------------
+   LEDGER FUNCTIONS
+---------------------------------------------------------- */
+function openLedger() {
+  document.getElementById("ledgerModal").style.display = "flex";
+}
+function closeLedger() {
+  document.getElementById("ledgerModal").style.display = "none";
+}
+function sendLedgerEmail() {
+  const subject = encodeURIComponent("Wolfpack Planetarium Ledger Entry");
+  const body = encodeURIComponent(
+    "I want to be recorded on the Global Ledger.\n\nGI (Google email):\nWorlds of Interest:\n\n— Sent from Wolfpack Planetarium Museum"
+  );
+  window.location.href = `mailto:taylor@theflightlinehq.com?subject=${subject}&body=${body}`;
+}
+
+/* ----------------------------------------------------------
+   FULL 100-WORLD DATASET (active + secret + coming soon)
+---------------------------------------------------------- */
+const worlds = [
+  {id:1,name:"Googol Globe 1/HZ",gi:"keithdtaylorsr1@gmail.com",status:"active",note:"Primary architect globe.",url:"https://www.google.com/maps/d/u/0/edit?mid=1C3KB_iiNrTCZIFGGZblwJwUyIWn66iA"},
+  {id:2,name:"Googol Globe 2/HZ",gi:"qrfcodeveterans@gmail.com",status:"active",note:"QRF Veterans operations.",url:"https://www.google.com/maps/d/u/4/edit?mid=1-0hzlDqdjnbGTLPvbIf7WHHX2yF4owk"},
+  {id:3,name:"Summerfall Core Globe A",gi:"jasonsummerfall@gmail.com",status:"active",note:"Futurist theater grid.",url:"https://www.google.com/maps/d/u/1/edit?mid=1oi58AQYieNZZN5mjh0IjNfx-u9K_nSs"},
+  {id:4,name:"Summerfall Core Globe B",gi:"jasonsummerfall@gmail.com",status:"active",note:"Secondary expansion.",url:"https://www.google.com/maps/d/u/1/edit?mid=1SLe7j44A3avlF3HIbLdMFFsuqmDcImk"},
+  {id:5,name:"Summerfall Core Globe C",gi:"jasonsummerfall@gmail.com",status:"active",note:"Perimeter corridors.",url:"https://www.google.com/maps/d/u/1/edit?mid=1gFDyz0YofUPX4unNFOaoB1tNBYgPstg"},
+  {id:6,name:"Summerfall Core Globe D",gi:"jasonsummerfall@gmail.com",status:"active",note:"Macro-view altitude.",url:"https://www.google.com/maps/d/u/1/edit?mid=1POvNXR-46CR7qju1OnWYkK80n5BFxwE"},
+  {id:7,name:"Ultradian 0630 Globe",gi:"jasonsummerfall@gmail.com",status:"active",note:"Focused morning grid.",url:"https://www.google.com/maps/d/u/1/edit?mid=1YvKVpFKPNIfOminh8D-wmJEwOtvXulg"},
+  {id:8,name:"Ultradian 0930 Globe",gi:"jasonsummerfall@gmail.com",status:"active",note:"0930 rhythm lanes.",url:"https://www.google.com/maps/d/u/1/edit?mid=1AepqoocnHY-H-Yjmdb03fZ3wVNFINm8"},
+  {id:9,name:"Closed-Loop Motion Theater",gi:"jasonsummerfall@gmail.com",status:"active",note:"Motion Proof theater.",url:"https://www.google.com/maps/d/u/1/edit?mid=1AepqoocnHY-H-Yjmdb03fZ3wVNFINm8"},
+  {id:10,name:"Fisherman World",gi:"ttthefisherman3560@gmail.com",status:"active",note:"Economic waterways.",url:"https://www.google.com/maps/d/u/6/edit?mid=17Gm3dDAMvQVSCG_GyYsgpAo56qbNu6Q"},
+  {id:11,name:"FlightLine HQ Globe",gi:"theflightlinehq@gmail.com",status:"active",note:"Global operations.",url:"https://www.google.com/maps/d/u/5/edit?mid=14Sl2Gec79x4JjCCqQY4BTaA15FZ8XLI"},
+  {id:12,name:"Taylor Architect Globe A",gi:"taylor@theflightlinehq.com",status:"active",note:"Corridor series.",url:"https://www.google.com/maps/d/u/2/edit?mid=1-C0P_0hPp10uK93rRLYennnIPbh3jsg"},
+  {id:13,name:"Taylor Architect Globe B",gi:"taylor@theflightlinehq.com",status:"active",note:"Expansion grid.",url:"https://www.google.com/maps/d/u/2/edit?mid=19vsp4qXpTEHHFDBoaZgMuNltN1GMq5U"},
+  {id:14,name:"Taylor Architect Globe C",gi:"taylor@theflightlinehq.com",status:"active",note:"Routing lanes.",url:"https://www.google.com/maps/d/u/2/edit?mid=1t8ZEVu1kYLnk3Ol1MfOdE40CDfUaDVk"},
+  {id:15,name:"Taylor Architect Globe D",gi:"taylor@theflightlinehq.com",status:"active",note:"Tower alignment.",url:"https://www.google.com/maps/d/u/2/edit?mid=19JLNnlN-lVyidq1LHFQeo7dpsahOqR8"},
+  {id:16,name:"Taylor Architect Globe E",gi:"taylor@theflightlinehq.com",status:"active",note:"Future DSX channels.",url:"https://www.google.com/maps/d/u/2/edit?mid=1bE4dNqjg3EiZo3BiHkCnqqAdnlqH6dI"},
+
+  /* Clear Sky (Secret) */
+  {id:17,name:"Clear Sky 17th",gi:"Clear Sky Flight Crew",status:"secret",note:"Classified world.",url:"https://www.google.com/maps/d/u/2/edit?mid=1XsB5Ybr7KWnycxmqxCh_4QKtCTSKC-4"},
+  {id:18,name:"Clear Sky 16th",gi:"Clear Sky Flight Crew",status:"secret",note:"Classified world.",url:"https://www.google.com/maps/d/u/2/edit?mid=1pU9Y9LSNA5_DFw4LctEmxToifS7g6Gs"},
+  {id:19,name:"Clear Sky 15th",gi:"Clear Sky Flight Crew",status:"secret",note:"Classified world.",url:"https://www.google.com/maps/d/u/2/edit?mid=1kwEeLdWVYaM4NffLN9D35IW7SiwyPe0"},
+  {id:20,name:"Clear Sky 14th",gi:"Clear Sky Flight Crew",status:"secret",note:"Classified world.",url:"https://www.google.com/maps/d/u/2/edit?mid=1mkdDitX0Z6Iz1QCeKi4CANe0nPiv2bQ"},
+  {id:21,name:"Clear Sky 13th",gi:"Clear Sky Flight Crew",status:"secret",note:"Classified world.",url:"https://www.google.com/maps/d/u/2/edit?mid=15FCIOqwu4S5r6WdIuTekObies8NQGtc"},
+  {id:22,name:"Clear Sky 12th",gi:"Clear Sky Flight Crew",status:"secret",note:"Classified world.",url:"https://www.google.com/maps/d/u/2/edit?mid=1CzNpIrq6rjScKUTPtA7ER0PeT8xNGyo"},
+  {id:23,name:"Clear Sky 11th",gi:"Clear Sky Flight Crew",status:"secret",note:"Classified world.",url:"https://www.google.com/maps/d/u/2/edit?mid=1XRXb5QiVeeVBQ-pcQx5-kDjPQYvwsxY"},
+  {id:24,name:"Clear Sky 10th",gi:"Clear Sky Flight Crew",status:"secret",note:"Classified world.",url:"https://www.google.com/maps/d/u/2/edit?mid=1W8_0nV6f9-WOjiamAoReiE7Qqhh9Q4k"},
+  {id:25,name:"Clear Sky 9th",gi:"Clear Sky Flight Crew",status:"secret",note:"Classified world.",url:"https://www.google.com/maps/d/u/2/edit?mid=1rHxTWz36OGMh7roPyGss89hSjAwpE4c"},
+  {id:26,name:"Clear Sky 8th",gi:"Clear Sky Flight Crew",status:"secret",note:"Classified world.",url:"https://www.google.com/maps/d/u/2/edit?mid=1wXnbgmHGQ_7i73iv1xvtjX0EVHa13dc"},
+  {id:27,name:"Clear Sky 7th",gi:"Clear Sky Flight Crew",status:"secret",note:"Classified world.",url:"https://www.google.com/maps/d/u/2/edit?mid=1razlgvLBp-0EiP_clkeJE9DNhbwl0AQ"},
+  {id:28,name:"Clear Sky 6th",gi:"Clear Sky Flight Crew",status:"secret",note:"Classified world.",url:"https://www.google.com/maps/d/u/2/edit?mid=1dsfWw7k1xzNhqEZv16x1de6vhsyJLZw"},
+  {id:29,name:"Clear Sky 5th",gi:"Clear Sky Flight Crew",status:"secret",note:"Classified world.",url:"https://www.google.com/maps/d/u/2/edit?mid=1uUiAQSg3kpr-qXjxO5wNGT0fYhGr_wI"},
+  {id:30,name:"Clear Sky 4th",gi:"Clear Sky Flight Crew",status:"secret",note:"Classified world.",url:"https://www.google.com/maps/d/u/2/edit?mid=1INdHNGPkoewrL5teWpZH2CTp0XQUqCs"},
+  {id:31,name:"Clear Sky 3rd",gi:"Clear Sky Flight Crew",status:"secret",note:"Classified world.",url:"https://www.google.com/maps/d/u/2/edit?mid=1ibPLOmvyhyHzvrR2Af9QbZObM-14cj4"},
+  {id:32,name:"Clear Sky 2nd",gi:"Clear Sky Flight Crew",status:"secret",note:"Classified world.",url:"https://www.google.com/maps/d/u/2/edit?mid=1SJ5wVoX6LX6y54c0kBcykh_a8-aDu4g"},
+];
+
+/* Add worlds 33–100 as "coming soon" */
+for (let i = 33; i <= 100; i++) {
+  worlds.push({
+    id: i,
+    name: `Reserved World #${String(i).padStart(3,'0')}`,
+    gi: "Unassigned Architect",
+    status: "inactive",
+    note: "Reserved plate for future architect.",
+    url: ""
+  });
+}
+
+/* ----------------------------------------------------------
+   RENDER ENGINE
+---------------------------------------------------------- */
+const grid = document.getElementById("planetGrid");
+
+function renderWorlds(filter = "all") {
+  grid.innerHTML = "";
+
+  const filtered = worlds.filter(w =>
+    filter === "all" ? true : w.status === filter
+  );
+
+  filtered.forEach(w => {
+    const card = document.createElement("div");
+    card.className = `world-card ${w.status}`;
+
+    card.innerHTML = `
+      <div class="world-title">WORLD ${String(w.id).padStart(3,'0')}</div>
+      <div class="world-status">${w.name}</div>
+      <div style="font-size:0.85rem; opacity:0.8;">GI: ${w.gi}</div>
+      <div style="font-size:0.8rem; margin-top:6px; opacity:0.7;">${w.note}</div>
+    `;
+
+    card.onclick = () => {
+      if (w.status === "active" && w.url)
+        window.location.href = "frames/frame-active.html?url=" + encodeURIComponent(w.url);
+      else if (w.status === "secret")
+        window.location.href = "frames/frame-secret.html";
+      else
+        window.location.href = "frames/frame-inactive.html";
+    };
+
+    grid.appendChild(card);
+  });
+}
+
+renderWorlds();
+
+/* FILTER CONTROLS */
+function filterWorlds(type) {
+  renderWorlds(type);
+}
+</script>
 
 </body>
 </html>
