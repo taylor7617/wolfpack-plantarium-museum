@@ -166,14 +166,7 @@
     .intro-text {
       font-size: 0.9rem;
       color: #ccedf8;
-      max-width: 860px;
-      margin-bottom: 6px;
-    }
-
-    .intro-sub {
-      font-size: 0.8rem;
-      color: #8ab9d3;
-      max-width: 860px;
+      max-width: 840px;
       margin-bottom: 18px;
     }
 
@@ -187,7 +180,7 @@
     .world-card {
       border-radius: 16px;
       padding: 14px 14px 12px;
-      background: rgba(3, 10, 20, 0.9);
+      background: radial-gradient(circle at top, rgba(5,15,30,0.95), rgba(2,5,12,0.98));
       border: 1px solid rgba(0, 0, 0, 0.7);
       box-shadow: 0 0 18px rgba(0, 0, 0, 0.7);
       transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
@@ -212,6 +205,43 @@
     .world-card.inactive {
       border-color: #3b3b3b;
       opacity: 0.72;
+    }
+
+    /* SPECIAL: NETTOPIA (WORLD 002) */
+    .world-card.nettopia {
+      background: radial-gradient(circle at top,
+        rgba(0, 255, 200, 0.14),
+        rgba(10, 5, 25, 0.98)
+      );
+      border-color: #00ffd0;
+      box-shadow:
+        0 0 24px rgba(0, 255, 200, 0.6),
+        0 0 48px rgba(0, 180, 255, 0.35);
+    }
+
+    .world-card.nettopia .world-name {
+      color: #e9fffe;
+      text-shadow: 0 0 10px rgba(0, 255, 200, 0.6);
+    }
+
+    .world-card.nettopia .world-pill {
+      border-color: #00ffd0;
+      color: #00ffd0;
+      box-shadow: 0 0 12px rgba(0, 255, 200, 0.7);
+    }
+
+    .open-btn-nettopia {
+      border-color: #00ffd0;
+      text-shadow: 0 0 6px rgba(0, 255, 200, 0.7);
+      box-shadow: 0 0 16px rgba(0, 255, 200, 0.45);
+    }
+
+    .open-btn-nettopia:hover {
+      background: #00ffd0;
+      color: #000;
+      box-shadow:
+        0 0 18px rgba(0, 255, 200, 0.8),
+        0 0 30px rgba(0, 180, 255, 0.7);
     }
 
     .world-top-row {
@@ -297,14 +327,6 @@
       background: #00f2ff;
       color: #000;
       box-shadow: 0 0 14px rgba(0, 242, 255, 0.8);
-    }
-
-    .empty-state {
-      grid-column: 1 / -1;
-      text-align: center;
-      font-size: 0.85rem;
-      color: #8ab9d3;
-      padding: 10px 0;
     }
 
     /* Footer */
@@ -450,10 +472,6 @@
       opened through a dedicated globe window. Worlds 017–032 are Clear Sky Flight Crew sectors
       with future opening dates. Worlds 033–100 are reserved plates for upcoming GI architects.
     </p>
-    <p class="intro-sub">
-      Note: All active globes open in a framed window using your browser. Access requires that each
-      map is set to “Anyone with the link → Viewer” inside Google My Maps.
-    </p>
 
     <section id="planetGrid"></section>
   </div>
@@ -471,8 +489,8 @@
   <div class="ledger-box">
     <div class="ledger-title">Global Ledger</div>
     <p class="ledger-text">
-      This ledger records one thing: your GI (Google email) and which worlds you want to explore
-      or lease. When you continue, your mail app opens a pre-filled message to FlightLine HQ.
+      This ledger records one thing: your GI (Google email) and which worlds you want to explore or lease.
+      When you continue, your mail app opens a pre-filled message to FlightLine HQ.
     </p>
     <div class="ledger-actions">
       <button class="btn-secondary" onclick="closeLedger()">Cancel</button>
@@ -503,27 +521,28 @@
         "— Sent from Wolfpack Planetarium Museum"
       ].join("\n")
     );
-    window.location.href = `mailto:taylor@theflightlinehq.com?subject=${subject}&body=${body}`;
+    window.location.href = "mailto:taylor@theflightlinehq.com?subject=" + subject + "&body=" + body;
   }
 
-  // World data (001–016 active with /view links)
+  // World data
   const worlds = [
-    // 001–016 ACTIVE
+    // ACTIVE 001–016
     {
       id: 1,
       name: "Googol Globe 1/HZ",
       gi: "keithdtaylorsr1@gmail.com",
       status: "active",
       note: "Primary architect globe and Memphis DC anchor.",
-      url: "https://www.google.com/maps/d/view?mid=1C3KB_iiNrTCZIFGGZblwJwUyIWn66iA"
+      url: "https://www.google.com/maps/d/u/0/edit?mid=1C3KB_iiNrTCZIFGGZblwJwUyIWn66iA"
     },
     {
       id: 2,
       name: "Googol Globe 2/HZ",
       gi: "qrfcodeveterans@gmail.com",
       status: "active",
-      note: "QRF Veterans operational globe for digital corridor deployment.",
-      url: ""  // placeholder until a clean public map is ready
+      note: "Access outernet from the FlightLine.",
+      url: "https://taylor7617.github.io/flightline-memphisdc/#proof-stack",
+      isNettopia: true
     },
     {
       id: 3,
@@ -531,7 +550,7 @@
       gi: "jasonsummerfall@gmail.com",
       status: "active",
       note: "Core futurist theater layout.",
-      url: "https://www.google.com/maps/d/view?mid=1LblIOaH1g2PviOrtod-4GnVWCJN-tRM"
+      url: "https://www.google.com/maps/d/edit?mid=1LblIOaH1g2PviOrtod-4GnVWCJN-tRM"
     },
     {
       id: 4,
@@ -539,7 +558,7 @@
       gi: "jasonsummerfall@gmail.com",
       status: "active",
       note: "Secondary core grid for long-range motion.",
-      url: "https://www.google.com/maps/d/view?mid=1gFDyz0YofUPX4unNFOaoB1tNBYgPstg"
+      url: "https://www.google.com/maps/d/edit?mid=1gFDyz0YofUPX4unNFOaoB1tNBYgPstg"
     },
     {
       id: 5,
@@ -547,7 +566,7 @@
       gi: "jasonsummerfall@gmail.com",
       status: "active",
       note: "Extended perimeter and staging corridors.",
-      url: "https://www.google.com/maps/d/view?mid=1SLe7j44A3avlF3HIbLdMFFsuqmDcImk"
+      url: "https://www.google.com/maps/d/edit?mid=1SLe7j44A3avlF3HIbLdMFFsuqmDcImk"
     },
     {
       id: 6,
@@ -555,7 +574,7 @@
       gi: "jasonsummerfall@gmail.com",
       status: "active",
       note: "High-altitude globe for macro-view planning.",
-      url: "https://www.google.com/maps/d/view?mid=1gFDyz0YofUPX4unNFOaoB1tNBYgPstg"
+      url: "https://www.google.com/maps/d/u/1/edit?mid=1POvNXR-46CR7qju1OnWYkK80n5BFxwE"
     },
     {
       id: 7,
@@ -563,7 +582,7 @@
       gi: "jasonsummerfall@gmail.com",
       status: "active",
       note: "Best focus window at 0630 — tactical start-of-day world.",
-      url: "https://www.google.com/maps/d/view?mid=1YvKVpFKPNIfOminh8D-wmJEwOtvXulg"
+      url: "https://www.google.com/maps/d/edit?mid=1YvKVpFKPNIfOminh8D-wmJEwOtvXulg"
     },
     {
       id: 8,
@@ -571,7 +590,7 @@
       gi: "jasonsummerfall@gmail.com",
       status: "active",
       note: "Mid-morning rhythm alignment at 0930.",
-      url: "https://www.google.com/maps/d/view?mid=1AepqoocnHY-H-Yjmdb03fZ3wVNFINm8"
+      url: "https://www.google.com/maps/d/edit?mid=1AepqoocnHY-H-Yjmdb03fZ3wVNFINm8"
     },
     {
       id: 9,
@@ -579,7 +598,7 @@
       gi: "jasonsummerfall@gmail.com",
       status: "active",
       note: "First digital closed-loop theater based on Motion Proof.",
-      url: "https://www.google.com/maps/d/view?mid=1POvNXR-46CR7qju1OnWYkK80n5BFxwE"
+      url: "https://www.google.com/maps/d/edit?mid=1Dsk2e-2Av5vpXWE87Bu0c53KejDcVjk"
     },
     {
       id: 10,
@@ -587,15 +606,15 @@
       gi: "ttthefisherman3560@gmail.com",
       status: "active",
       note: "Operational fishing corridors and economic waterways.",
-      url: "https://www.google.com/maps/d/view?mid=17Gm3dDAMvQVSCG_GyYsgpAo56qbNu6Q"
+      url: "https://www.google.com/maps/d/u/6/edit?mid=17Gm3dDAMvQVSCG_GyYsgpAo56qbNu6Q"
     },
     {
       id: 11,
       name: "FlightLine HQ Globe",
       gi: "theflightlinehq@gmail.com",
       status: "active",
-      note: "Central HQ globe for global FlightLine operations.",
-      url: "https://www.google.com/maps/d/view?mid=14Sl2Gec79x4JjCCqQY4BTaA15FZ8XLI"
+      note: "Central HQ globe for global FlightLine operations & international travel grid.",
+      url: "https://www.google.com/maps/d/u/2/edit?mid=1t8ZEVu1kYLnk3Ol1MfOdE40CDfUaDVk"
     },
     {
       id: 12,
@@ -603,15 +622,15 @@
       gi: "taylor@theflightlinehq.com",
       status: "active",
       note: "Primary architect layout for corridor series.",
-      url: "https://www.google.com/maps/d/view?mid=1t8ZEVu1kYLnk3Ol1MfOdE40CDfUaDVk"
+      url: "https://www.google.com/maps/d/edit?mid=1-C0P_0hPp10uK93rRLYennnIPbh3jsg"
     },
     {
       id: 13,
-      name: "Taylor Architect Globe B",
+      name: "Taylor Architect Globe B — BTC Towers Grid",
       gi: "theflightlinehq@gmail.com",
       status: "active",
-      note: "BTC Towers circulation and international travel grid.",
-      url: "https://www.google.com/maps/d/view?mid=1-0hzlDqdjnbGTLPvbIf7WHHX2yF4owk"
+      note: "Circulation grid for BTC Towers and high-density motion corridors.",
+      url: "https://www.google.com/maps/d/edit?mid=1-0hzlDqdjnbGTLPvbIf7WHHX2yF4owk"
     },
     {
       id: 14,
@@ -619,7 +638,7 @@
       gi: "taylor@theflightlinehq.com",
       status: "active",
       note: "Sub-corridor optimization and routing lanes.",
-      url: "https://www.google.com/maps/d/view?mid=19vsp4qXpTEHHFDBoaZgMuNltN1GMq5U"
+      url: "https://www.google.com/maps/d/edit?mid=19vsp4qXpTEHHFDBoaZgMuNltN1GMq5U"
     },
     {
       id: 15,
@@ -627,7 +646,7 @@
       gi: "taylor@theflightlinehq.com",
       status: "active",
       note: "Specialized tower alignments.",
-      url: "https://www.google.com/maps/d/view?mid=19JLNnlN-lVyidq1LHFQeo7dpsahOqR8"
+      url: "https://www.google.com/maps/d/edit?mid=19JLNnlN-lVyidq1LHFQeo7dpsahOqR8"
     },
     {
       id: 16,
@@ -635,33 +654,33 @@
       gi: "taylor@theflightlinehq.com",
       status: "active",
       note: "Supporting grid for future DSX channels.",
-      url: "https://www.google.com/maps/d/view?mid=1bE4dNqjg3EiZo3BiHkCnqqAdnlqH6dI"
+      url: "https://www.google.com/maps/d/u/2/edit?mid=1bE4dNqjg3EiZo3BiHkCnqqAdnlqH6dI"
     },
 
-    // 017–032 SECRET with open dates
-    { id: 17, name: "Clear Sky 17th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 17th.", url: "", openDate: "Jan 17, 2026" },
-    { id: 18, name: "Clear Sky 16th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 16th.", url: "", openDate: "Feb 16, 2026" },
-    { id: 19, name: "Clear Sky 15th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 15th.", url: "", openDate: "Mar 15, 2026" },
-    { id: 20, name: "Clear Sky 14th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 14th.", url: "", openDate: "Apr 14, 2026" },
-    { id: 21, name: "Clear Sky 13th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 13th.", url: "", openDate: "May 13, 2026" },
-    { id: 22, name: "Clear Sky 12th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 12th.", url: "", openDate: "Jun 12, 2026" },
-    { id: 23, name: "Clear Sky 11th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 11th.", url: "", openDate: "Jul 11, 2026" },
-    { id: 24, name: "Clear Sky 10th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 10th.", url: "", openDate: "Aug 10, 2026" },
-    { id: 25, name: "Clear Sky 9th",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 9th.",  url: "", openDate: "Sep 09, 2026" },
-    { id: 26, name: "Clear Sky 8th",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 8th.",  url: "", openDate: "Oct 08, 2026" },
-    { id: 27, name: "Clear Sky 7th",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 7th.",  url: "", openDate: "Nov 07, 2026" },
-    { id: 28, name: "Clear Sky 6th",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 6th.",  url: "", openDate: "Dec 06, 2026" },
-    { id: 29, name: "Clear Sky 5th",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 5th.",  url: "", openDate: "Jan 05, 2027" },
-    { id: 30, name: "Clear Sky 4th",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 4th.",  url: "", openDate: "Feb 04, 2027" },
-    { id: 31, name: "Clear Sky 3rd",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 3rd.",  url: "", openDate: "Mar 03, 2027" },
-    { id: 32, name: "Clear Sky 2nd",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 2nd.",  url: "", openDate: "Apr 02, 2027" },
+    // CLEAR SKY 017–032
+    { id: 17, name: "Clear Sky 17th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 17th.", url: "https://www.google.com/maps/d/u/2/edit?mid=1XsB5Ybr7KWnycxmqxCh_4QKtCTSKC-4", openDate: "Jan 17, 2026" },
+    { id: 18, name: "Clear Sky 16th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 16th.", url: "https://www.google.com/maps/d/u/2/edit?mid=1pU9Y9LSNA5_DFw4LctEmxToifS7g6Gs", openDate: "Feb 16, 2026" },
+    { id: 19, name: "Clear Sky 15th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 15th.", url: "https://www.google.com/maps/d/u/2/edit?mid=1kwEeLdWVYaM4NffLN9D35IW7SiwyPe0", openDate: "Mar 15, 2026" },
+    { id: 20, name: "Clear Sky 14th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 14th.", url: "https://www.google.com/maps/d/u/2/edit?mid=1mkdDitX0Z6Iz1QCeKi4CANe0nPiv2bQ", openDate: "Apr 14, 2026" },
+    { id: 21, name: "Clear Sky 13th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 13th.", url: "https://www.google.com/maps/d/u/2/edit?mid=15FCIOqwu4S5r6WdIuTekObies8NQGtc", openDate: "May 13, 2026" },
+    { id: 22, name: "Clear Sky 12th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 12th.", url: "https://www.google.com/maps/d/u/2/edit?mid=1CzNpIrq6rjScKUTPtA7ER0PeT8xNGyo", openDate: "Jun 12, 2026" },
+    { id: 23, name: "Clear Sky 11th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 11th.", url: "https://www.google.com/maps/d/u/2/edit?mid=1XRXb5QiVeeVBQ-pcQx5-kDjPQYvwsxY", openDate: "Jul 11, 2026" },
+    { id: 24, name: "Clear Sky 10th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 10th.", url: "https://www.google.com/maps/d/u/2/edit?mid=1W8_0nV6f9-WOjiamAoReiE7Qqhh9Q4k", openDate: "Aug 10, 2026" },
+    { id: 25, name: "Clear Sky 9th",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 9th.",  url: "https://www.google.com/maps/d/u/2/edit?mid=1rHxTWz36OGMh7roPyGss89hSjAwpE4c", openDate: "Sep 09, 2026" },
+    { id: 26, name: "Clear Sky 8th",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 8th.",  url: "https://www.google.com/maps/d/u/2/edit?mid=1wXnbgmHGQ_7i73iv1xvtjX0EVHa13dc", openDate: "Oct 08, 2026" },
+    { id: 27, name: "Clear Sky 7th",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 7th.",  url: "https://www.google.com/maps/d/u/2/edit?mid=1razlgvLBp-0EiP_clkeJE9DNhbwl0AQ", openDate: "Nov 07, 2026" },
+    { id: 28, name: "Clear Sky 6th",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 6th.",  url: "https://www.google.com/maps/d/u/2/edit?mid=1dsfWw7k1xzNhqEZv16x1de6vhsyJLZw", openDate: "Dec 06, 2026" },
+    { id: 29, name: "Clear Sky 5th",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 5th.",  url: "https://www.google.com/maps/d/u/2/edit?mid=1uUiAQSg3kpr-qXjxO5wNGT0fYhGr_wI", openDate: "Jan 05, 2027" },
+    { id: 30, name: "Clear Sky 4th",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 4th.",  url: "https://www.google.com/maps/d/u/2/edit?mid=1INdHNGPkoewrL5teWpZH2CTp0XQUqCs", openDate: "Feb 04, 2027" },
+    { id: 31, name: "Clear Sky 3rd",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 3rd.",  url: "https://www.google.com/maps/d/u/2/edit?mid=1ibPLOmvyhyHzvrR2Af9QbZObM-14cj4", openDate: "Mar 03, 2027" },
+    { id: 32, name: "Clear Sky 2nd",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 2nd.",  url: "https://www.google.com/maps/d/u/2/edit?mid=1SJ5wVoX6LX6y54c0kBcykh_a8-aDu4g", openDate: "Apr 02, 2027" }
   ];
 
-  // Fill 033–100 Coming Soon
+  // Fill 033–100 as Coming Soon
   for (let i = 33; i <= 100; i++) {
     worlds.push({
       id: i,
-      name: `Reserved World #${String(i).padStart(3, "0")}`,
+      name: "Reserved World #" + String(i).padStart(3, "0"),
       gi: "Unassigned Architect",
       status: "inactive",
       note: "Reserved plate for future globe architect.",
@@ -675,22 +694,21 @@
     grid.innerHTML = "";
     const filtered = worlds.filter(w => filter === "all" ? true : w.status === filter);
 
-    if (filtered.length === 0) {
-      const empty = document.createElement("div");
-      empty.className = "empty-state";
-      empty.textContent = "No worlds in this category yet. Check another filter or join the ledger to claim a plate.";
-      grid.appendChild(empty);
-      return;
-    }
-
     filtered.forEach(w => {
-      const card = document.createElement("div");
-      card.className = `world-card ${w.status}`;
+      const isNettopia = !!w.isNettopia;
 
-      const statusLabel =
+      const card = document.createElement("div");
+      card.className = "world-card " + w.status + (isNettopia ? " nettopia" : "");
+
+      let statusLabel =
         w.status === "active" ? "Active Globe" :
         w.status === "secret" ? "Clear Sky" :
         "Coming Soon";
+
+      // Override pill text for NETTOPIA gateway (WORLD 002)
+      if (isNettopia) {
+        statusLabel = "NETTOPIA GLOBAL";
+      }
 
       const pillClass =
         w.status === "active" ? "pill-active" :
@@ -699,15 +717,17 @@
 
       let openDateLine = "";
       if (w.status === "secret" && w.openDate) {
-        openDateLine = `<div class="world-open">Opens: ${w.openDate}</div>`;
+        openDateLine = '<div class="world-open">Opens: ' + w.openDate + '</div>';
       }
 
       let actionLine = "";
       if (w.status === "active" && w.url) {
+        const btnLabel = isNettopia ? "ENTERNET" : "Open Globe Window";
+        const btnExtraClass = isNettopia ? "open-btn-nettopia" : "";
         actionLine = `
           <div class="world-actions">
-            <button class="open-btn" data-url="${encodeURIComponent(w.url)}">
-              Open Globe Window
+            <button class="open-btn ${btnExtraClass}" data-url="${encodeURIComponent(w.url)}">
+              ${btnLabel}
             </button>
           </div>
         `;
@@ -732,9 +752,10 @@
         } else if (w.status === "inactive") {
           window.location.href = "frames/frame-inactive.html";
         }
-        // Active cards use the button only
+        // Active: use the button to open globe window
       };
 
+      // Button click for active globes (tile window)
       const btn = card.querySelector(".open-btn");
       if (btn) {
         btn.addEventListener("click", (event) => {
