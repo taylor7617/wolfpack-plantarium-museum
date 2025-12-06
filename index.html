@@ -490,22 +490,134 @@
   // World data
   const worlds = [
     // Active 001–016 (maps open via tile window)
-    { id: 1,  name: "Googol Globe 1/HZ", gi: "keithdtaylorsr1@gmail.com",   status: "active",  note: "Primary architect globe and Memphis DC anchor.", url: "https://www.google.com/maps/d/u/0/edit?mid=1C3KB_iiNrTCZIFGGZblwJwUyIWn66iA" },
-    { id: 2,  name: "Googol Globe 2/HZ", gi: "qrfcodeveterans@gmail.com",   status: "active",  note: "QRF Veterans operational globe for digital corridor deployment.", url: "https://www.google.com/maps/d/u/4/edit?mid=1-0hzlDqdjnbGTLPvbIf7WHHX2yF4owk" },
-    { id: 3,  name: "Summerfall Core Globe A", gi: "jasonsummerfall@gmail.com", status: "active", note: "Core futurist theater layout.", url: "https://www.google.com/maps/d/u/1/edit?mid=1oi58AQYieNZZN5mjh0IjNfx-u9K_nSs" },
-    { id: 4,  name: "Summerfall Core Globe B", gi: "jasonsummerfall@gmail.com", status: "active", note: "Secondary core grid for long-range motion.", url: "https://www.google.com/maps/d/u/1/edit?mid=1SLe7j44A3avlF3HIbLdMFFsuqmDcImk" },
-    { id: 5,  name: "Summerfall Core Globe C", gi: "jasonsummerfall@gmail.com", status: "active", note: "Extended perimeter and staging corridors.", url: "https://www.google.com/maps/d/u/1/edit?mid=1gFDyz0YofUPX4unNFOaoB1tNBYgPstg" },
-    { id: 6,  name: "Summerfall Core Globe D", gi: "jasonsummerfall@gmail.com", status: "active", note: "High-altitude globe for macro-view planning.", url: "https://www.google.com/maps/d/u/1/edit?mid=1POvNXR-46CR7qju1OnWYkK80n5BFxwE" },
-    { id: 7,  name: "Ultradian 0630 Globe", gi: "jasonsummerfall@gmail.com",   status: "active", note: "Best focus window at 0630 — tactical start-of-day world.", url: "https://www.google.com/maps/d/u/1/edit?mid=1YvKVpFKPNIfOminh8D-wmJEwOtvXulg" },
-    { id: 8,  name: "Ultradian 0930 Globe", gi: "jasonsummerfall@gmail.com",   status: "active", note: "Mid-morning rhythm alignment at 0930.", url: "https://www.google.com/maps/d/u/1/edit?mid=1AepqoocnHY-H-Yjmdb03fZ3wVNFINm8" },
-    { id: 9,  name: "Closed-Loop Motion Theater", gi: "jasonsummerfall@gmail.com", status: "active", note: "First digital closed-loop theater based on Motion Proof.", url: "https://www.google.com/maps/d/u/1/edit?mid=1AepqoocnHY-H-Yjmdb03fZ3wVNFINm8" },
-    { id: 10, name: "Fisherman World", gi: "ttthefisherman3560@gmail.com",   status: "active",  note: "Operational fishing corridors and economic waterways.", url: "https://www.google.com/maps/d/u/6/edit?mid=17Gm3dDAMvQVSCG_GyYsgpAo56qbNu6Q" },
-    { id: 11, name: "FlightLine HQ Globe", gi: "theflightlinehq@gmail.com",  status: "active",  note: "Central HQ globe for global FlightLine operations.", url: "https://www.google.com/maps/d/u/5/edit?mid=14Sl2Gec79x4JjCCqQY4BTaA15FZ8XLI" },
-    { id: 12, name: "Taylor Architect Globe A", gi: "taylor@theflightlinehq.com", status: "active", note: "Primary architect layout for corridor series.", url: "https://www.google.com/maps/d/u/2/edit?mid=1-C0P_0hPp10uK93rRLYennnIPbh3jsg" },
-    { id: 13, name: "Taylor Architect Globe B", gi: "taylor@theflightlinehq.com", status: "active", note: "Expansion grid for regional towers.", url: "https://www.google.com/maps/d/u/2/edit?mid=19vsp4qXpTEHHFDBoaZgMuNltN1GMq5U" },
-    { id: 14, name: "Taylor Architect Globe C", gi: "taylor@theflightlinehq.com", status: "active", note: "Sub-corridor optimization and routing lanes.", url: "https://www.google.com/maps/d/u/2/edit?mid=1t8ZEVu1kYLnk3Ol1MfOdE40CDfUaDVk" },
-    { id: 15, name: "Taylor Architect Globe D", gi: "taylor@theflightlinehq.com", status: "active", note: "Specialized tower alignments.", url: "https://www.google.com/maps/d/u/2/edit?mid=19JLNnlN-lVyidq1LHFQeo7dpsahOqR8" },
-    { id: 16, name: "Taylor Architect Globe E", gi: "taylor@theflightlinehq.com", status: "active", note: "Supporting grid for future DSX channels.", url: "https://www.google.com/maps/d/u/2/edit?mid=1bE4dNqjg3EiZo3BiHkCnqqAdnlqH6dI" },
+    {
+      id: 1,
+      name: "Googol Globe 1/HZ",
+      gi: "keithdtaylorsr1@gmail.com",
+      status: "active",
+      note: "Primary architect globe and Memphis DC anchor.",
+      url: "https://www.google.com/maps/d/u/0/edit?mid=1C3KB_iiNrTCZIFGGZblwJwUyIWn66iA&usp=sharing"
+    },
+    {
+      id: 2,
+      name: "Googol Globe 2/HZ",
+      gi: "qrfcodeveterans@gmail.com",
+      status: "active",
+      note: "QRF Veterans operational globe for digital corridor deployment.",
+      url: "https://www.google.com/maps/d/u/4/edit?mid=1-0hzlDqdjnbGTLPvbIf7WHHX2yF4owk&usp=sharing"
+    },
+    {
+      id: 3,
+      name: "Summerfall Core Globe A",
+      gi: "jasonsummerfall@gmail.com",
+      status: "active",
+      note: "Core futurist theater layout.",
+      url: "https://www.google.com/maps/d/u/1/edit?mid=1LblIOaH1g2PviOrtod-4GnVWCJN-tRM&usp=sharing"
+    },
+    {
+      id: 4,
+      name: "Summerfall Core Globe B",
+      gi: "jasonsummerfall@gmail.com",
+      status: "active",
+      note: "Secondary core grid for long-range motion.",
+      url: "https://www.google.com/maps/d/u/1/edit?mid=1gFDyz0YofUPX4unNFOaoB1tNBYgPstg&usp=sharing"
+    },
+    {
+      id: 5,
+      name: "Summerfall Core Globe C",
+      gi: "jasonsummerfall@gmail.com",
+      status: "active",
+      note: "Extended perimeter and staging corridors.",
+      url: "https://www.google.com/maps/d/u/1/edit?mid=1SLe7j44A3avlF3HIbLdMFFsuqmDcImk&usp=sharing"
+    },
+    {
+      id: 6,
+      name: "Summerfall Core Globe D",
+      gi: "jasonsummerfall@gmail.com",
+      status: "active",
+      note: "High-altitude globe for macro-view planning.",
+      url: "https://www.google.com/maps/d/u/1/edit?mid=1gFDyz0YofUPX4unNFOaoB1tNBYgPstg&usp=sharing"
+    },
+    {
+      id: 7,
+      name: "Ultradian 0630 Globe",
+      gi: "jasonsummerfall@gmail.com",
+      status: "active",
+      note: "Best focus window at 0630 — tactical start-of-day world.",
+      url: "https://www.google.com/maps/d/u/1/edit?mid=1YvKVpFKPNIfOminh8D-wmJEwOtvXulg&usp=sharing"
+    },
+    {
+      id: 8,
+      name: "Ultradian 0930 Globe",
+      gi: "jasonsummerfall@gmail.com",
+      status: "active",
+      note: "Mid-morning rhythm alignment at 0930.",
+      url: "https://www.google.com/maps/d/u/1/edit?mid=1AepqoocnHY-H-Yjmdb03fZ3wVNFINm8&usp=sharing"
+    },
+    {
+      id: 9,
+      name: "Closed-Loop Motion Theater",
+      gi: "jasonsummerfall@gmail.com",
+      status: "active",
+      note: "First digital closed-loop theater based on Motion Proof.",
+      url: "https://www.google.com/maps/d/u/1/edit?mid=1POvNXR-46CR7qju1OnWYkK80n5BFxwE&usp=sharing"
+    },
+    {
+      id: 10,
+      name: "Fisherman World",
+      gi: "ttthefisherman3560@gmail.com",
+      status: "active",
+      note: "Operational fishing corridors and economic waterways.",
+      url: "https://www.google.com/maps/d/u/6/edit?mid=17Gm3dDAMvQVSCG_GyYsgpAo56qbNu6Q&usp=sharing"
+    },
+    {
+      id: 11,
+      name: "FlightLine HQ Globe",
+      gi: "theflightlinehq@gmail.com",
+      status: "active",
+      note: "Central HQ globe for global FlightLine operations.",
+      url: "https://www.google.com/maps/d/u/2/edit?mid=1t8ZEVu1kYLnk3Ol1MfOdE40CDfUaDVk&usp=sharing"
+    },
+    {
+      id: 12,
+      name: "Taylor Architect Globe A",
+      gi: "taylor@theflightlinehq.com",
+      status: "active",
+      note: "Primary architect layout for corridor series.",
+      url: "https://www.google.com/maps/d/u/2/edit?mid=1-C0P_0hPp10uK93rRLYennnIPbh3jsg&usp=sharing"
+    },
+    {
+      id: 13,
+      name: "Taylor Architect Globe B",
+      gi: "taylor@theflightlinehq.com",
+      status: "active",
+      note: "Expansion grid for regional towers.",
+      url: "https://www.google.com/maps/d/u/2/edit?mid=19vsp4qXpTEHHFDBoaZgMuNltN1GMq5U&usp=sharing"
+    },
+    {
+      id: 14,
+      name: "Taylor Architect Globe C",
+      gi: "taylor@theflightlinehq.com",
+      status: "active",
+      note: "Sub-corridor optimization and routing lanes.",
+      url: "https://www.google.com/maps/d/edit?mid=1-0hzlDqdjnbGTLPvbIf7WHHX2yF4owk&usp=sharing"
+    },
+    {
+      id: 15,
+      name: "Taylor Architect Globe D",
+      gi: "taylor@theflightlinehq.com",
+      status: "active",
+      note: "Specialized tower alignments.",
+      url: "https://www.google.com/maps/d/u/2/edit?mid=19vsp4qXpTEHHFDBoaZgMuNltN1GMq5U&usp=sharing"
+    },
+    {
+      id: 16,
+      name: "Taylor Architect Globe E",
+      gi: "taylor@theflightlinehq.com",
+      status: "active",
+      note: "Supporting grid for future DSX channels.",
+      url: "https://www.google.com/maps/d/u/2/edit?mid=1-C0P_0hPp10uK93rRLYennnIPbh3jsg&usp=sharing"
+    },
 
     // Clear Sky 017–032 (Flight Crew) with opening dates
     { id: 17, name: "Clear Sky 17th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 17th.", url: "https://www.google.com/maps/d/u/2/edit?mid=1XsB5Ybr7KWnycxmqxCh_4QKtCTSKC-4", openDate: "Jan 17, 2026" },
@@ -593,7 +705,7 @@
         } else if (w.status === "inactive") {
           window.location.href = "frames/frame-inactive.html";
         }
-        // Active worlds use the button only, so card click does nothing there.
+        // Active worlds use the button only.
       };
 
       // Button click for active globes (tile window)
