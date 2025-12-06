@@ -79,13 +79,6 @@
       opacity: 0.9;
     }
 
-    .subtitle-division {
-      font-size: 0.8rem;
-      color: #ffd3ff;
-      opacity: 0.95;
-      margin-top: 3px;
-    }
-
     .header-row-bottom {
       display: flex;
       flex-wrap: wrap;
@@ -138,7 +131,9 @@
       justify-content: flex-end;
     }
 
-    .filter-btn, .ledger-btn {
+    .filter-btn,
+    .ledger-btn,
+    .tower-btn {
       border-radius: 999px;
       border: 1px solid rgba(0, 242, 255, 0.7);
       background: transparent;
@@ -159,6 +154,19 @@
       box-shadow: 0 0 16px rgba(0, 242, 255, 0.8);
     }
 
+    /* Tower Guard special */
+    .tower-btn {
+      border-color: #ffcc33;
+      color: #ffedb3;
+      box-shadow: 0 0 10px rgba(255, 204, 51, 0.7);
+    }
+
+    .tower-btn:hover {
+      background: #ffcc33;
+      color: #000;
+      box-shadow: 0 0 20px rgba(255, 204, 51, 0.9);
+    }
+
     /* Main */
     main {
       flex: 1;
@@ -177,11 +185,6 @@
       margin-bottom: 18px;
     }
 
-    .intro-text strong {
-      color: #00f2ff;
-      font-weight: 600;
-    }
-
     /* Grid */
     #planetGrid {
       display: grid;
@@ -195,7 +198,7 @@
       background: rgba(3, 10, 20, 0.9);
       border: 1px solid rgba(0, 0, 0, 0.7);
       box-shadow: 0 0 18px rgba(0, 0, 0, 0.7);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
       cursor: pointer;
     }
 
@@ -216,38 +219,14 @@
 
     .world-card.inactive {
       border-color: #3b3b3b;
-      opacity: 0.78;
+      opacity: 0.72;
     }
 
-    /* Special NETTOPIA / ENTERNET tile (WORLD 002) */
+    /* ENTERNET special styling (WORLD 002) */
     .world-card.enternet {
-      background: radial-gradient(circle at top, #241400, #070308 60%, #000000 100%);
-      border-color: #ffde59;
-      box-shadow: 0 0 26px rgba(255, 222, 89, 0.6);
-    }
-
-    .world-card.enternet .world-id {
-      color: #ffde59;
-    }
-
-    .world-card.enternet .world-pill {
-      border-color: #ffde59;
-      color: #ffde59;
-    }
-
-    .world-card.enternet .world-name {
-      color: #fff6cf;
-    }
-
-    .world-card.enternet .open-btn {
-      border-color: #ffde59;
-      color: #fff6cf;
-    }
-
-    .world-card.enternet .open-btn:hover {
-      background: #ffde59;
-      color: #000;
-      box-shadow: 0 0 18px rgba(255, 222, 89, 0.8);
+      border-color: #ffcc33;
+      background: radial-gradient(circle at top, rgba(50, 35, 0, 0.9), rgba(5, 5, 0, 0.95));
+      box-shadow: 0 0 26px rgba(255, 204, 51, 0.7);
     }
 
     .world-top-row {
@@ -285,6 +264,11 @@
     .pill-inactive {
       border: 1px solid #757575;
       color: #b5b5b5;
+    }
+
+    .pill-enternet {
+      border: 1px solid #ffcc33;
+      color: #ffefb3;
     }
 
     .world-name {
@@ -333,6 +317,17 @@
       background: #00f2ff;
       color: #000;
       box-shadow: 0 0 14px rgba(0, 242, 255, 0.8);
+    }
+
+    .open-btn-enternet {
+      border-color: #ffcc33;
+      color: #ffefb3;
+    }
+
+    .open-btn-enternet:hover {
+      background: #ffcc33;
+      color: #000;
+      box-shadow: 0 0 18px rgba(255, 204, 51, 0.9);
     }
 
     /* Footer */
@@ -444,30 +439,30 @@
     <div class="title-block">
       <h1>WOLFPACK PLANETARIUM</h1>
       <div class="subtitle-main">Digital Art • Globes • Planetary Leasing Museum</div>
-      <div class="subtitle-sub">Powered by GI (Google Identification) &amp; FlightLine Memphis DC</div>
-      <div class="subtitle-division">
-        AI-76 DC • 7th Aerospace • 6th Infrastructure • 17th Division Command
+      <div class="subtitle-sub">
+        Powered by GI (Google Identification) &amp; FlightLine Memphis DC
       </div>
     </div>
 
     <div class="header-row-bottom">
       <div class="legend">
         <div class="legend-item">
-          <span class="dot dot-active"></span><span>Active Globes (001–016)</span>
+          <span class="dot dot-active"></span><span>Active Globes</span>
         </div>
         <div class="legend-item">
-          <span class="dot dot-secret"></span><span>Clear Sky (017–032)</span>
+          <span class="dot dot-secret"></span><span>Clear Sky (Flight Crew)</span>
         </div>
         <div class="legend-item">
-          <span class="dot dot-inactive"></span><span>Division Plates (033–108)</span>
+          <span class="dot dot-inactive"></span><span>Coming Soon Plates</span>
         </div>
       </div>
 
       <div class="controls-row">
+        <button class="tower-btn" onclick="openTowerGuard()">Tower Guard World</button>
         <button class="filter-btn" onclick="filterWorlds('all')">All</button>
         <button class="filter-btn" onclick="filterWorlds('active')">Active</button>
         <button class="filter-btn" onclick="filterWorlds('secret')">Clear Sky</button>
-        <button class="filter-btn" onclick="filterWorlds('inactive')">Division Plates</button>
+        <button class="filter-btn" onclick="filterWorlds('inactive')">Coming Soon</button>
         <button class="ledger-btn" onclick="openLedger()">Join Ledger</button>
       </div>
     </div>
@@ -477,11 +472,9 @@
 <main>
   <div class="main-inner">
     <p class="intro-text">
-      Each WORLD tile represents a digital globe. <strong>Worlds 001–016</strong> are architect-built
-      active globes. <strong>017–032</strong> are Clear Sky Flight Crew sectors with staggered opening
-      windows. <strong>033–100</strong> are captain plates across ATC, BTC, CTC, and DTC inside the
-      AI-76 Division. <strong>101–108</strong> are Echo Company (E.co) support wings — S1–S4 Overt,
-      S5–S8 Covert — all coming online under MTP Gemini.
+      Each WORLD tile represents a digital globe. Worlds 001–016 are active architect globes,
+      017–032 are Clear Sky Flight Crew sectors with scheduled openings, and 033–100 are reserved
+      plates for upcoming GI architects operating under the AI-76 DC Division Command.
     </p>
 
     <section id="planetGrid"></section>
@@ -490,9 +483,8 @@
 
 <footer>
   <div class="footer-inner">
-    Worlds 001–016: Architect FlightLine Battalion • 017–032: Skyline Squadron (Clear Sky) •
-    033–108: AI-76 DC Division Plates (ATC, BTC, CTC, DTC &amp; E.co Support Wings).
-    Ledger intake remains GI-only (email) to keep sovereignty simple and verifiable.
+    Worlds 001–032 are active or classified. Worlds 033–100 are reserved plates — Coming Soon for
+    new GI architects. Ledger intake is email-only to keep sovereignty simple and verifiable.
   </div>
 </footer>
 
@@ -502,7 +494,7 @@
     <div class="ledger-title">Global Ledger</div>
     <p class="ledger-text">
       This ledger records one thing: your GI (Google email) and which worlds you want to explore or lease.
-      When you continue, your mail app opens a pre-filled message to FlightLine HQ so the Division can seat you.
+      When you continue, your mail app opens a pre-filled message to FlightLine HQ.
     </p>
     <div class="ledger-actions">
       <button class="btn-secondary" onclick="closeLedger()">Cancel</button>
@@ -512,7 +504,12 @@
 </div>
 
 <script>
-  // Ledger functions
+  // --------- CONSTANTS ----------
+  const ENTERNET_WORLD_ID = 2;
+  const TOWER_GUARD_URL =
+    "https://www.google.com/maps/d/edit?mid=1-0hzlDqdjnbGTLPvbIf7WHHX2yF4owk&usp=sharing";
+
+  // --------- LEDGER ----------
   function openLedger() {
     document.getElementById("ledgerModal").style.display = "flex";
   }
@@ -530,26 +527,22 @@
         "GI (Google email):",
         "World(s) of interest:",
         "",
-        "— Sent from Wolfpack Planetarium Museum (AI-76 DC Division)"
+        "— Sent from Wolfpack Planetarium Museum"
       ].join("\n")
     );
-    window.location.href = `mailto:taylor@theflightlinehq.com?subject=${subject}&body=${body}`;
+    window.location.href =
+      "mailto:taylor@theflightlinehq.com?subject=" + subject + "&body=" + body;
   }
 
-  // Helper to compute Month/Year for reserved/Division plates 033–108
-  const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  function computeReservedOpenDate(id) {
-    // Start Jan 2027 at WORLD 033 and walk forward by month
-    if (id < 33) return "";
-    const offset = id - 33; // 0-based month offset
-    const year = 2027 + Math.floor(offset / 12);
-    const month = MONTHS[offset % 12];
-    return `${month} ${year}`;
+  // --------- TOWER GUARD ----------
+  function openTowerGuard() {
+    const encodedUrl = encodeURIComponent(TOWER_GUARD_URL);
+    window.location.href = "frames/frame-active.html?url=" + encodedUrl;
   }
 
-  // World data
+  // --------- WORLD DATA ----------
   const worlds = [
-    // Active 001–016 (maps open via tile window)
+    // 001 — Architect: Keith
     {
       id: 1,
       name: "Googol Globe 1/HZ",
@@ -558,25 +551,25 @@
       note: "Primary architect globe and Memphis DC anchor.",
       url: "https://www.google.com/maps/d/u/0/edit?mid=1C3KB_iiNrTCZIFGGZblwJwUyIWn66iA&usp=sharing"
     },
-    // SPECIAL NETTOPIA / ENTERNET GLOBE
+
+    // 002 — ENTERNET / Outernet Gateway (Memphis DC)
     {
       id: 2,
-      name: "Googol Globe 2/HZ — NETTOPIA, GLOBAL",
+      name: "Googol Globe 2/HZ",
       gi: "qrfcodeveterans@gmail.com",
       status: "active",
-      note: "Access outernet from the FlightLine via Memphis DC Proof Stack.",
-      url: "https://taylor7617.github.io/flightline-memphisdc/#proof-stack",
-      special: "enternet",
-      pillOverride: "NETTOPIA, GLOBAL",
-      buttonLabel: "ENTERNET"
+      note: "Access Outernet from the FlightLine — primary Memphis DC ENTERNET gate into NETTOPIA.",
+      url: "https://taylor7617.github.io/flightline-memphisdc/#proof-stack"
     },
+
+    // 003–009 — Jason Summerfall globes
     {
       id: 3,
       name: "Summerfall Core Globe A",
       gi: "jasonsummerfall@gmail.com",
       status: "active",
       note: "Core futurist theater layout.",
-      url: "https://www.google.com/maps/d/u/1/edit?mid=1LblIOaH1g2PviOrtod-4GnVWCJN-tRM&usp=sharing"
+      url: "https://www.google.com/maps/d/edit?mid=1gFDyz0YofUPX4unNFOaoB1tNBYgPstg&usp=sharing"
     },
     {
       id: 4,
@@ -584,7 +577,7 @@
       gi: "jasonsummerfall@gmail.com",
       status: "active",
       note: "Secondary core grid for long-range motion.",
-      url: "https://www.google.com/maps/d/u/1/edit?mid=1gFDyz0YofUPX4unNFOaoB1tNBYgPstg&usp=sharing"
+      url: "https://www.google.com/maps/d/edit?mid=1Dsk2e-2Av5vpXWE87Bu0c53KejDcVjk&usp=sharing"
     },
     {
       id: 5,
@@ -600,7 +593,7 @@
       gi: "jasonsummerfall@gmail.com",
       status: "active",
       note: "High-altitude globe for macro-view planning.",
-      url: "https://www.google.com/maps/d/u/1/edit?mid=1gFDyz0YofUPX4unNFOaoB1tNBYgPstg&usp=sharing"
+      url: "https://www.google.com/maps/d/edit?mid=1oi58AQYieNZZN5mjh0IjNfx-u9K_nSs&usp=sharing"
     },
     {
       id: 7,
@@ -608,7 +601,7 @@
       gi: "jasonsummerfall@gmail.com",
       status: "active",
       note: "Best focus window at 0630 — tactical start-of-day world.",
-      url: "https://www.google.com/maps/d/u/1/edit?mid=1YvKVpFKPNIfOminh8D-wmJEwOtvXulg&usp=sharing"
+      url: "https://www.google.com/maps/d/edit?mid=1POvNXR-46CR7qju1OnWYkK80n5BFxwE&usp=sharing"
     },
     {
       id: 8,
@@ -616,7 +609,7 @@
       gi: "jasonsummerfall@gmail.com",
       status: "active",
       note: "Mid-morning rhythm alignment at 0930.",
-      url: "https://www.google.com/maps/d/u/1/edit?mid=1AepqoocnHY-H-Yjmdb03fZ3wVNFINm8&usp=sharing"
+      url: "https://www.google.com/maps/d/edit?mid=1YvKVpFKPNIfOminh8D-wmJEwOtvXulg&usp=sharing"
     },
     {
       id: 9,
@@ -624,8 +617,10 @@
       gi: "jasonsummerfall@gmail.com",
       status: "active",
       note: "First digital closed-loop theater based on Motion Proof.",
-      url: "https://www.google.com/maps/d/u/1/edit?mid=1POvNXR-46CR7qju1OnWYkK80n5BFxwE&usp=sharing"
+      url: "https://www.google.com/maps/d/edit?mid=1POvNXR-46CR7qju1OnWYkK80n5BFxwE&usp=sharing"
     },
+
+    // 010 — Fisherman corridors
     {
       id: 10,
       name: "Fisherman World",
@@ -634,144 +629,146 @@
       note: "Operational fishing corridors and economic waterways.",
       url: "https://www.google.com/maps/d/u/6/edit?mid=17Gm3dDAMvQVSCG_GyYsgpAo56qbNu6Q&usp=sharing"
     },
+
+    // 011–012 — FlightLine HQ training + ops
     {
       id: 11,
+      name: "FlightLine Training Globe",
+      gi: "theflightlinehq@gmail.com",
+      status: "active",
+      note: "Training sector globe for all networks — situational awareness and initiative practice.",
+      url: "https://www.google.com/maps/d/edit?mid=1IkYcGhF3GuFwgGjruV-n3mX61Gm7XgA&usp=sharing"
+    },
+    {
+      id: 12,
       name: "FlightLine HQ Globe",
       gi: "theflightlinehq@gmail.com",
       status: "active",
       note: "Central HQ globe for global FlightLine operations.",
-      url: "https://www.google.com/maps/d/u/2/edit?mid=1t8ZEVu1kYLnk3Ol1MfOdE40CDfUaDVk&usp=sharing"
+      url: "https://www.google.com/maps/d/u/5/edit?mid=14Sl2Gec79x4JjCCqQY4BTaA15FZ8XLI&usp=sharing"
     },
+
+    // 013–016 — Taylor Architect globes
     {
-      id: 12,
+      id: 13,
       name: "Taylor Architect Globe A",
       gi: "taylor@theflightlinehq.com",
       status: "active",
-      note: "Primary architect layout for corridor series.",
-      url: "https://www.google.com/maps/d/u/2/edit?mid=1-C0P_0hPp10uK93rRLYennnIPbh3jsg&usp=sharing"
-    },
-    {
-      id: 13,
-      name: "Taylor Architect Globe B",
-      gi: "theflightlinehq@gmail.com",
-      status: "active",
-      note: "BTC Tower circulation & international travel grid.",
-      url: "https://www.google.com/maps/d/edit?mid=1-0hzlDqdjnbGTLPvbIf7WHHX2yF4owk&usp=sharing"
+      note: "Specialized tower alignments for BTC circulation.",
+      url: "https://www.google.com/maps/d/u/2/edit?mid=19JLNnlN-lVyidq1LHFQeo7dpsahOqR8&usp=sharing"
     },
     {
       id: 14,
-      name: "Taylor Architect Globe C",
+      name: "Taylor Architect Globe B",
       gi: "taylor@theflightlinehq.com",
       status: "active",
-      note: "Sub-corridor optimization and routing lanes.",
-      url: "https://www.google.com/maps/d/edit?mid=1t8ZEVu1kYLnk3Ol1MfOdE40CDfUaDVk&usp=sharing"
+      note: "Primary architect layout for corridor series.",
+      url: "https://www.google.com/maps/d/u/2/edit?mid=1t8ZEVu1kYLnk3Ol1MfOdE40CDfUaDVk&usp=sharing"
     },
     {
       id: 15,
-      name: "Taylor Architect Globe D",
+      name: "Taylor Architect Globe C",
       gi: "taylor@theflightlinehq.com",
       status: "active",
-      note: "Specialized tower alignments.",
-      url: "https://www.google.com/maps/d/edit?mid=19vsp4qXpTEHHFDBoaZgMuNltN1GMq5U&usp=sharing"
+      note: "Expansion grid for regional towers.",
+      url: "https://www.google.com/maps/d/u/2/edit?mid=19vsp4qXpTEHHFDBoaZgMuNltN1GMq5U&usp=sharing"
     },
     {
       id: 16,
-      name: "Taylor Architect Globe E",
+      name: "Taylor Architect Globe D",
       gi: "taylor@theflightlinehq.com",
       status: "active",
       note: "Supporting grid for future DSX channels.",
-      url: "https://www.google.com/maps/d/edit?mid=1-C0P_0hPp10uK93rRLYennnIPbh3jsg&usp=sharing"
+      url: "https://www.google.com/maps/d/u/2/edit?mid=1-C0P_0hPp10uK93rRLYennnIPbh3jsg&usp=sharing"
     },
 
-    // Clear Sky 017–032 (Flight Crew) with opening dates
-    { id: 17, name: "Clear Sky 17th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 17th.", url: "frames/frame-secret.html", openDate: "Jan 2026" },
-    { id: 18, name: "Clear Sky 16th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 16th.", url: "frames/frame-secret.html", openDate: "Feb 2026" },
-    { id: 19, name: "Clear Sky 15th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 15th.", url: "frames/frame-secret.html", openDate: "Mar 2026" },
-    { id: 20, name: "Clear Sky 14th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 14th.", url: "frames/frame-secret.html", openDate: "Apr 2026" },
-    { id: 21, name: "Clear Sky 13th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 13th.", url: "frames/frame-secret.html", openDate: "May 2026" },
-    { id: 22, name: "Clear Sky 12th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 12th.", url: "frames/frame-secret.html", openDate: "Jun 2026" },
-    { id: 23, name: "Clear Sky 11th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 11th.", url: "frames/frame-secret.html", openDate: "Jul 2026" },
-    { id: 24, name: "Clear Sky 10th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 10th.", url: "frames/frame-secret.html", openDate: "Aug 2026" },
-    { id: 25, name: "Clear Sky 9th",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 9th.",  url: "frames/frame-secret.html", openDate: "Sep 2026" },
-    { id: 26, name: "Clear Sky 8th",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 8th.",  url: "frames/frame-secret.html", openDate: "Oct 2026" },
-    { id: 27, name: "Clear Sky 7th",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 7th.",  url: "frames/frame-secret.html", openDate: "Nov 2026" },
-    { id: 28, name: "Clear Sky 6th",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 6th.",  url: "frames/frame-secret.html", openDate: "Dec 2026" },
-    { id: 29, name: "Clear Sky 5th",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 5th.",  url: "frames/frame-secret.html", openDate: "Jan 2027" },
-    { id: 30, name: "Clear Sky 4th",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 4th.",  url: "frames/frame-secret.html", openDate: "Feb 2027" },
-    { id: 31, name: "Clear Sky 3rd",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 3rd.",  url: "frames/frame-secret.html", openDate: "Mar 2027" },
-    { id: 32, name: "Clear Sky 2nd",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 2nd.",  url: "frames/frame-secret.html", openDate: "Apr 2027" }
+    // 017–032 — Clear Sky Flight Crew with opening years
+    { id: 17, name: "Clear Sky 17th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 17th.", url: "", openDate: "Jan 2026" },
+    { id: 18, name: "Clear Sky 16th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 16th.", url: "", openDate: "Feb 2026" },
+    { id: 19, name: "Clear Sky 15th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 15th.", url: "", openDate: "Mar 2026" },
+    { id: 20, name: "Clear Sky 14th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 14th.", url: "", openDate: "Apr 2026" },
+    { id: 21, name: "Clear Sky 13th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 13th.", url: "", openDate: "May 2026" },
+    { id: 22, name: "Clear Sky 12th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 12th.", url: "", openDate: "Jun 2026" },
+    { id: 23, name: "Clear Sky 11th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 11th.", url: "", openDate: "Jul 2026" },
+    { id: 24, name: "Clear Sky 10th", gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 10th.", url: "", openDate: "Aug 2026" },
+    { id: 25, name: "Clear Sky 9th",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 9th.",  url: "", openDate: "Sep 2026" },
+    { id: 26, name: "Clear Sky 8th",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 8th.",  url: "", openDate: "Oct 2026" },
+    { id: 27, name: "Clear Sky 7th",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 7th.",  url: "", openDate: "Nov 2026" },
+    { id: 28, name: "Clear Sky 6th",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 6th.",  url: "", openDate: "Dec 2026" },
+    { id: 29, name: "Clear Sky 5th",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 5th.",  url: "", openDate: "Jan 2027" },
+    { id: 30, name: "Clear Sky 4th",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 4th.",  url: "", openDate: "Feb 2027" },
+    { id: 31, name: "Clear Sky 3rd",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 3rd.",  url: "", openDate: "Mar 2027" },
+    { id: 32, name: "Clear Sky 2nd",  gi: "Clear Sky Flight Crew", status: "secret", note: "Flight Crew Officer sector — 2nd.",  url: "", openDate: "Apr 2027" }
   ];
 
-  // Captain worlds 033–100 (ATC, BTC, CTC, DTC)
-  const captainCompanies = [
-    { code: "ATC", name: "Alpha Troop Company", start: 33, end: 49 },
-    { code: "BTC", name: "Bravo Troop Company", start: 50, end: 66 },
-    { code: "CTC", name: "Charlie Troop Company", start: 67, end: 83 },
-    { code: "DTC", name: "Delta Troop Company", start: 84, end: 100 }
-  ];
+  // 033–100 — Reserved plates for Captains / E.co (month-year rollout)
+  const reservedStartId = 33;
+  const reservedEndId = 100;
+  const reservedStartYear = 2027;
+  const reservedStartMonthIndex = 4; // May 2027
 
-  captainCompanies.forEach(company => {
-    for (let id = company.start; id <= company.end; id++) {
-      const index = id - company.start + 1;
-      worlds.push({
-        id,
-        name: `${company.code} Captain Plate ${String(index).padStart(2, "0")}`,
-        gi: "Unassigned Captain",
-        status: "inactive",
-        note: `${company.code} (${company.name}) — Aerospace Infrastructure 76 Division captain world.`,
-        unit: company.code,
-        url: "",
-        openDate: computeReservedOpenDate(id)
-      });
-    }
-  });
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-  // Echo Company (E.co) Support Wings 101–108
-  const ecoWorlds = [
-    { id: 101, name: "E.co Overt S1",  note: "S1 — Personnel & Roster (Overt Ops)." },
-    { id: 102, name: "E.co Overt S2",  note: "S2 — Intel & Recon (Overt Ops)." },
-    { id: 103, name: "E.co Overt S3",  note: "S3 — Ops & Scheduling (Overt Ops)." },
-    { id: 104, name: "E.co Overt S4",  note: "S4 — Logistics & Supply (Overt Ops)." },
-    { id: 105, name: "E.co Covert S5", note: "S5 — Civic Influence (Covert Ops)." },
-    { id: 106, name: "E.co Covert S6", note: "S6 — Signals & Data (Covert Ops)." },
-    { id: 107, name: "E.co Covert S7", note: "S7 — Training & Doctrine (Covert Ops)." },
-    { id: 108, name: "E.co Covert S8", note: "S8 — Finance & Channels (Covert Ops)." }
-  ];
+  let offset = 0;
+  for (let id = reservedStartId; id <= reservedEndId; id++) {
+    const totalMonths = reservedStartMonthIndex + offset;
+    const year = reservedStartYear + Math.floor(totalMonths / 12);
+    const monthIndex = totalMonths % 12;
+    const label = monthNames[monthIndex] + " " + year;
 
-  ecoWorlds.forEach(e => {
     worlds.push({
-      id: e.id,
-      name: e.name,
-      gi: "Echo Company (E.co)",
+      id,
+      name: `Reserved World #${String(id).padStart(3, "0")}`,
+      gi: "Unassigned Architect",
       status: "inactive",
-      note: e.note + " — under AI-76 DC Division Command.",
-      unit: "E.co",
+      note: "Reserved plate for future globe architect under AI-76 DC Division Command.",
       url: "",
-      openDate: computeReservedOpenDate(e.id)
+      openDate: label
     });
-  });
 
+    offset++;
+  }
+
+  // --------- RENDERING ----------
   const grid = document.getElementById("planetGrid");
 
-  function renderWorlds(filter = "all") {
+  function renderWorlds(filter) {
+    const type = filter || "all";
     grid.innerHTML = "";
-    const filtered = worlds.filter(w => filter === "all" ? true : w.status === filter);
+
+    const filtered = worlds.filter(w => type === "all" ? true : w.status === type);
 
     filtered.forEach(w => {
+      const isEnternet = (w.id === ENTERNET_WORLD_ID);
       const card = document.createElement("div");
-      const specialClass = w.special ? w.special : "";
-      card.className = `world-card ${w.status} ${specialClass}`;
 
-      const statusLabel =
-        w.pillOverride ? w.pillOverride :
-        w.status === "active" ? "Active Globe" :
-        w.status === "secret" ? "Clear Sky" :
-        "Coming Soon";
+      const cardClasses = ["world-card", w.status];
+      if (isEnternet) {
+        cardClasses.push("enternet");
+      }
+      card.className = cardClasses.join(" ");
 
-      const pillClass =
-        w.status === "active" ? "pill-active" :
-        w.status === "secret" ? "pill-secret" :
-        "pill-inactive";
+      let statusLabel;
+      if (isEnternet) {
+        statusLabel = "NETTOPIA ENTERNET GATE";
+      } else if (w.status === "active") {
+        statusLabel = "Active Globe";
+      } else if (w.status === "secret") {
+        statusLabel = "Clear Sky";
+      } else {
+        statusLabel = "Coming Soon";
+      }
+
+      let pillClass;
+      if (isEnternet) {
+        pillClass = "pill-enternet";
+      } else if (w.status === "active") {
+        pillClass = "pill-active";
+      } else if (w.status === "secret") {
+        pillClass = "pill-secret";
+      } else {
+        pillClass = "pill-inactive";
+      }
 
       let openDateLine = "";
       if (w.openDate) {
@@ -780,11 +777,12 @@
 
       let actionLine = "";
       if (w.status === "active" && w.url) {
-        const buttonText = w.buttonLabel || "Open Globe Window";
+        const btnClass = isEnternet ? "open-btn open-btn-enternet" : "open-btn";
+        const btnLabel = isEnternet ? "ENTERNET" : "Open Globe Window";
         actionLine = `
           <div class="world-actions">
-            <button class="open-btn" data-url="${encodeURIComponent(w.url)}">
-              ${buttonText}
+            <button class="${btnClass}" data-url="${encodeURIComponent(w.url)}">
+              ${btnLabel}
             </button>
           </div>
         `;
@@ -802,17 +800,17 @@
         ${actionLine}
       `;
 
-      // Card click behavior:
+      // Card click (secret / inactive)
       card.onclick = () => {
         if (w.status === "secret") {
           window.location.href = "frames/frame-secret.html";
         } else if (w.status === "inactive") {
           window.location.href = "frames/frame-inactive.html";
         }
-        // For active: card itself does nothing; button handles globe window.
+        // Active: only button opens window, not card
       };
 
-      // Button click for active globes (tile window)
+      // Button click for active globes
       const btn = card.querySelector(".open-btn");
       if (btn) {
         btn.addEventListener("click", (event) => {
