@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Globe Window • Wolfpack Planetarium</title>
+  <title>Active Globe Window | Wolfpack Planetarium</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     * {
       box-sizing: border-box;
@@ -12,125 +13,298 @@
     }
 
     html, body {
-      height: 100%;
-      width: 100%;
-      background: radial-gradient(circle at top, #030711, #000000 60%);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: #e7f7ff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .frame-shell {
-      width: 100vw;
-      height: 100vh;
-      padding: 10px;
-    }
-
-    .frame-inner {
-      border-radius: 24px;
-      border: 2px solid rgba(0, 242, 255, 0.8);
-      overflow: hidden;
       width: 100%;
       height: 100%;
-      box-shadow: 0 0 36px rgba(0, 242, 255, 0.35);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      background: radial-gradient(circle at top, #050b16, #020309 55%, #000000 100%);
+      color: #eaf7ff;
+    }
+
+    body {
       display: flex;
       flex-direction: column;
-      background: #000;
     }
 
-    .frame-header {
-      padding: 6px 14px;
-      font-size: 0.75rem;
-      letter-spacing: 0.18em;
+    header {
+      padding: 16px 16px 10px;
+      border-bottom: 1px solid rgba(0, 242, 255, 0.3);
+      background: rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 1.1rem;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: #9beaff;
-      background: linear-gradient(to right, #010308, #021d2a);
-      border-bottom: 1px solid rgba(0, 242, 255, 0.4);
+      color: #00f2ff;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      font-size: 0.8rem;
+      color: #b6ddec;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 14px 16px 16px;
+    }
+
+    .main-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      height: 100%;
+    }
+
+    .info-panel {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 242, 255, 0.4);
+      background: linear-gradient(
+        to bottom right,
+        rgba(0, 15, 35, 0.9),
+        rgba(0, 6, 15, 0.95)
+      );
+      font-size: 0.8rem;
+      color: #cfe9f9;
+    }
+
+    .info-title-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
     }
 
-    .frame-title {
+    .world-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #9fdfff;
+    }
+
+    .status-pill {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 2px 10px;
+      border-radius: 999px;
+      border: 1px solid #00f2ff;
+      color: #00f2ff;
+    }
+
+    .info-section {
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    .info-section strong {
+      color: #ffffff;
+    }
+
+    .warning {
+      margin-top: 6px;
+      font-size: 0.75rem;
+      color: #ffdfb0;
+    }
+
+    .action-row {
+      margin-top: 8px;
       display: flex;
+      flex-wrap: wrap;
       gap: 8px;
       align-items: center;
     }
 
-    .frame-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
+    .btn {
+      border-radius: 999px;
+      border: 1px solid #00f2ff;
+      background: transparent;
+      color: #e7fbff;
+      font-size: 0.75rem;
+      padding: 5px 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: 0.18s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn:hover {
       background: #00f2ff;
-      box-shadow: 0 0 10px rgba(0, 242, 255, 0.85);
+      color: #000;
+      box-shadow: 0 0 16px rgba(0, 242, 255, 0.8);
     }
 
-    .frame-label {
-      opacity: 0.95;
+    .btn-secondary {
+      border-color: #607485;
+      color: #c5d5e0;
     }
 
-    .frame-note {
-      font-size: 0.7rem;
-      color: #8bcde5;
-      opacity: 0.9;
+    .btn-secondary:hover {
+      background: #1c2730;
+      color: #e7f1f7;
+      box-shadow: 0 0 10px rgba(96,116,133,0.8);
+    }
+
+    .iframe-wrapper {
+      flex: 1;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 242, 255, 0.3);
+      margin-top: 10px;
+      background: radial-gradient(circle at top, #040915, #000);
+      position: relative;
     }
 
     iframe {
-      border: none;
       width: 100%;
       height: 100%;
-      background: #000;
+      border: 0;
     }
 
-    .fallback {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .iframe-overlay-note {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      font-size: 0.7rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.75);
+      border: 1px solid rgba(0, 242, 255, 0.5);
+      color: #ccefff;
+    }
+
+    footer {
+      padding: 8px 16px 12px;
+      border-top: 1px solid rgba(0, 242, 255, 0.2);
+      font-size: 0.7rem;
+      color: #9abbd3;
+      background: #020408;
       text-align: center;
-      padding: 20px;
-      font-size: 0.9rem;
-      color: #e9f7ff;
+    }
+
+    footer .footer-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 640px) {
+      .info-panel {
+        font-size: 0.78rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="frame-shell">
-    <div class="frame-inner">
-      <div class="frame-header">
-        <div class="frame-title">
-          <span class="frame-dot"></span>
-          <span class="frame-label">Wolfpack Globe Window</span>
-        </div>
-        <div class="frame-note" id="frameNote">Loading globe…</div>
+
+<header>
+  <div class="header-inner">
+    <h1>ACTIVE GLOBE WINDOW</h1>
+    <div class="subtitle">
+      You are viewing an Architect globe from the Wolfpack Planetarium Museum.
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="main-inner">
+    <div class="info-panel">
+      <div class="info-title-row">
+        <div class="world-label">ACTIVE ARCHITECT GLOBE</div>
+        <div class="status-pill">ACTIVE</div>
       </div>
-      <iframe id="planetFrame" loading="lazy"></iframe>
-      <div class="fallback" id="fallback" style="display:none;">
-        No globe URL was provided.<br>
-        Return to the Wolfpack Planetarium Museum and open a world tile again.
+
+      <div class="info-section">
+        <p>
+          This window routes you into a live <strong>Google My Maps corridor</strong>
+          controlled by a specific <strong>GI (Google Identification)</strong> email.
+        </p>
+        <p>
+          GI is the architect’s Google account. It defines who owns, edits, and maintains
+          the lanes, towers, runways, and corridors you are about to see.
+        </p>
+      </div>
+
+      <div class="info-section" style="margin-top:6px;">
+        <p><strong>What this brings for users:</strong></p>
+        <ul style="margin-left:16px; margin-top:3px;">
+          <li>Real-world map view of the Architect’s digital globe.</li>
+          <li>Visible corridors, towers, and BTC/ATC/CTC/DTC lanes (when configured).</li>
+          <li>A live sense of how the Planetarium turns streets and cities into flight grids.</li>
+        </ul>
+      </div>
+
+      <div class="warning">
+        If the map does not load or you see a 403 error, the Architect must set the map sharing
+        to <strong>“Anyone with the link → Viewer”</strong> in Google My Maps.
+      </div>
+
+      <div class="action-row">
+        <a id="openNewTab" class="btn" href="#" target="_blank" rel="noopener noreferrer">
+          🔭 Open Globe in New Tab
+        </a>
+        <a class="btn btn-secondary" href="../index.html">
+          ⬅ Back to Planetarium
+        </a>
+      </div>
+    </div>
+
+    <div class="iframe-wrapper">
+      <iframe id="mapFrame" src=""></iframe>
+      <div class="iframe-overlay-note">
+        If this preview is blank, use “Open Globe in New Tab” above.
       </div>
     </div>
   </div>
+</main>
 
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const url = params.get("url");
-    const frame = document.getElementById("planetFrame");
-    const fallback = document.getElementById("fallback");
-    const frameNote = document.getElementById("frameNote");
+<footer>
+  <div class="footer-inner">
+    Architect globes are live training and leasing surfaces. Treat what you see as operational
+    infrastructure, not decoration.
+  </div>
+</footer>
 
-    if (url) {
-      frame.src = decodeURIComponent(url);
-      frame.style.display = "block";
-      fallback.style.display = "none";
-      frameNote.textContent = "Active globe loaded via GI map link";
-    } else {
-      frame.style.display = "none";
-      fallback.style.display = "flex";
-      frameNote.textContent = "No globe attached";
-    }
-  </script>
+<script>
+  function getParam(name) {
+    const url = new URL(window.location.href);
+    return url.searchParams.get(name);
+  }
+
+  const encodedUrl = getParam("url");
+  if (encodedUrl) {
+    const decoded = decodeURIComponent(encodedUrl);
+    const frame = document.getElementById("mapFrame");
+    const link = document.getElementById("openNewTab");
+    frame.src = decoded;
+    link.href = decoded;
+  } else {
+    const frame = document.getElementById("mapFrame");
+    frame.src = "about:blank";
+    const link = document.getElementById("openNewTab");
+    link.href = "#";
+    link.onclick = function (e) {
+      e.preventDefault();
+      alert("No globe URL was provided. Return to the Planetarium grid and try again.");
+    };
+  }
+</script>
+
 </body>
 </html>
+
