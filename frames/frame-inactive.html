@@ -2,76 +2,216 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Clear Sky • Classified Sector</title>
+  <title>Reserved Plate | Wolfpack Planetarium</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
+      width: 100%;
       height: 100%;
-      width: 100%;
-      background: radial-gradient(circle at top, #05000a, #000000 70%);
-      font-family: "SF Mono", Menlo, Consolas, monospace;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #ffbfff;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      background: radial-gradient(circle at top, #030d14, #000000 65%);
+      color: #dde7f2;
     }
+    body { display: flex; flex-direction: column; }
 
-    .badge-shell {
-      padding: 18px;
-      width: 100%;
-      max-width: 440px;
+    header {
+      padding: 16px 16px 10px;
+      border-bottom: 1px solid rgba(117, 117, 117, 0.7);
+      background: rgba(0, 0, 0, 0.9);
     }
-
-    .badge {
-      border-radius: 20px;
-      border: 1px solid #ff4dff;
-      box-shadow: 0 0 30px rgba(255, 77, 255, 0.75);
-      padding: 20px 26px 18px;
-      text-align: center;
-      background: radial-gradient(circle at top, #210326, #050008);
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
     }
-
-    .badge-title {
-      font-size: 0.9rem;
-      letter-spacing: 0.28em;
+    h1 {
+      font-size: 1.05rem;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      margin-bottom: 8px;
+      color: #c4ccd6;
+      margin-bottom: 4px;
     }
-
-    .badge-line {
+    .subtitle {
       font-size: 0.8rem;
-      margin: 4px 0;
-      opacity: 0.96;
+      color: #9eb4c6;
     }
 
-    .badge-tag {
-      margin-top: 10px;
-      padding: 5px 12px;
-      display: inline-block;
-      border-radius: 999px;
-      border: 1px solid #ffbfff;
-      font-size: 0.7rem;
+    main {
+      flex: 1;
+      padding: 14px 16px 18px;
+    }
+    .main-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .panel {
+      border-radius: 12px;
+      border: 1px dashed rgba(152, 166, 179, 0.85);
+      background: linear-gradient(to bottom right, #050e18, #02060c);
+      padding: 12px 14px;
+      font-size: 0.82rem;
+    }
+
+    .label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .label {
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #bac5d0;
+    }
+    .pill {
+      font-size: 0.72rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      opacity: 0.9;
+      padding: 2px 10px;
+      border-radius: 999px;
+      border: 1px solid #757575;
+      color: #c2c2c2;
+    }
+
+    .panel p {
+      margin-bottom: 6px;
+      line-height: 1.5;
+    }
+
+    .panel ul {
+      margin-left: 18px;
+      margin-top: 4px;
+    }
+
+    .btn-row {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .btn {
+      border-radius: 999px;
+      border: 1px solid #757575;
+      background: transparent;
+      color: #dde5ef;
+      font-size: 0.75rem;
+      padding: 5px 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: 0.18s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn:hover {
+      background: #c2c2c2;
+      color: #000;
+      box-shadow: 0 0 14px rgba(117,117,117,0.9);
+    }
+    .btn-primary {
+      border-color: #00f2ff;
+      color: #e3f9ff;
+    }
+    .btn-primary:hover {
+      background: #00f2ff;
+      color: #000;
+      box-shadow: 0 0 16px rgba(0,242,255,0.9);
+    }
+
+    footer {
+      padding: 8px 16px 12px;
+      border-top: 1px solid rgba(117, 117, 117, 0.6);
+      font-size: 0.7rem;
+      color: #a9bccb;
+      background: #020409;
+      text-align: center;
+    }
+    footer .footer-inner {
+      max-width: 960px;
+      margin: 0 auto;
     }
   </style>
 </head>
 <body>
-  <div class="badge-shell">
-    <div class="badge">
-      <div class="badge-title">CLEAR SKY</div>
-      <div class="badge-line">Flight Crew Operation Zone.</div>
-      <div class="badge-line">Access requires direct clearance from FlightLine HQ.</div>
-      <div class="badge-line">This sector is synchronized with future opening dates in the museum grid.</div>
-      <div class="badge-tag">Classified • Read Only</div>
+
+<header>
+  <div class="header-inner">
+    <h1>RESERVED WORLD PLATE</h1>
+    <div class="subtitle">
+      This world is a future globe under AI-76 DC | Division Command.
     </div>
   </div>
+</header>
+
+<main>
+  <div class="main-inner">
+    <div class="panel">
+      <div class="label-row">
+        <div class="label">COMING SOON</div>
+        <div class="pill">PLATE — NOT YET MAPPED</div>
+      </div>
+
+      <p>
+        You reached a <strong>reserved plate</strong>. Worlds 033–100 are part of the
+        AI-76 DC Division Command expansion. Each plate will eventually be:
+      </p>
+
+      <ul>
+        <li>Assigned to a Captain or E.co support wing via GI.</li>
+        <li>Given a dedicated Google My Maps globe.</li>
+        <li>Integrated into ATC/BTC/CTC/DTC traffic lanes.</li>
+      </ul>
+
+      <p style="margin-top:6px;">
+        Right now, there is <strong>no map link</strong> and nothing to preview. That is
+        deliberate. The plate stays empty until the Ledger assigns GI, corridors,
+        and mission.
+      </p>
+
+      <div class="btn-row">
+        <a href="../index.html" class="btn">
+          ⬅ Back to Planetarium
+        </a>
+        <button class="btn btn-primary" onclick="openLedger()">
+          ✉ Request Future Plate via Ledger
+        </button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    Reserved plates are future globes. When Captains and E.co complete their corridors,
+    these worlds will promote into Active or Clear Sky states.
+  </div>
+</footer>
+
+<script>
+  function openLedger() {
+    const subject = encodeURIComponent("Wolfpack Planetarium — Reserved Plate Interest");
+    const body = encodeURIComponent([
+      "I am interested in a future Reserved Plate world (033–100).",
+      "",
+      "GI (Google email):",
+      "Preferred Troop Company (ATC/BTC/CTC/DTC/E.co):",
+      "",
+      "Intent (build corridors, run tower guard, support ops):",
+      "",
+      "— Sent from Reserved Plate frame"
+    ].join("\n"));
+    window.location.href = "mailto:taylor@theflightlinehq.com?subject=" + subject + "&body=" + body;
+  }
+</script>
+
 </body>
 </html>
+
